@@ -13,6 +13,7 @@
         <module>demo</module>
         <module>mybatis-generator</module>
         <module>search</module>
+        <module>ddd</module>
     </modules>
 
     <properties>
