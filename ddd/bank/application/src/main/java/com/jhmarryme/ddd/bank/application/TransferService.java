@@ -1,5 +1,7 @@
 package com.jhmarryme.ddd.bank.application;
 
+import com.jhmarryme.ddd.bank.common.Result;
+
 import java.math.BigDecimal;
 
 /**

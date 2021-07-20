@@ -1,6 +1,6 @@
 package com.jhmarryme.ddd.bank.web;
 
-import com.jhmarryme.ddd.bank.application.Result;
+import com.jhmarryme.ddd.bank.common.Result;
 import com.jhmarryme.ddd.bank.application.TransferService;
 
 import javax.servlet.http.HttpSession;

@@ -24,5 +24,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         BigDecimal forex = yahooForexService.getExchangeRate(source.getValue(), target.getValue());
         return new ExchangeRate(forex, source, target);
     }
+
+    private class YahooForexService {
+        public BigDecimal getExchangeRate(Object value, Object value1) {
+            return null;
+        }
     }
+
 }

@@ -1,9 +1,9 @@
 package com.jhmarryme.ddd.bank.domain.entity;
 
-import com.jhmarryme.ddd.bank.types.AccountId;
-import com.jhmarryme.ddd.bank.types.AccountNumber;
-import com.jhmarryme.ddd.bank.types.Money;
-import com.jhmarryme.ddd.bank.types.UserId;
+import com.jhmarryme.ddd.bank.exception.DailyLimitExceededException;
+import com.jhmarryme.ddd.bank.exception.InsufficientFundsException;
+import com.jhmarryme.ddd.bank.exception.InvalidCurrencyException;
+import com.jhmarryme.ddd.bank.types.*;
 import lombok.Data;
 
 /**
@@ -21,9 +21,24 @@ public class Account {
 
     public void withdraw(Money money) {
         // 转出
+        if (this.available.compareTo(money) < 0) {
+            throw new InsufficientFundsException();
+        }
+        if (this.dailyLimit.compareTo(money) < 0) {
+            throw new DailyLimitExceededException();
+        }
+        this.available = this.available.subtract(money);
     }
 
     public void deposit(Money money) {
         // 转入
+        if (!this.getCurrency().equals(money.getCurrency())) {
+            throw new InvalidCurrencyException();
+        }
+        this.available = this.available.add(money);
+    }
+
+    public Currency getCurrency() {
+        return this.available.getCurrency();
     }
 }

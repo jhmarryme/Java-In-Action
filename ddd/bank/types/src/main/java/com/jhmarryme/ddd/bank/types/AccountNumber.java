@@ -7,6 +7,10 @@ package com.jhmarryme.ddd.bank.types;
  */
 public class AccountNumber {
 
+    public AccountNumber(String targetAccountNumber) {
+
+    }
+
     public String getValue() {
         return null;
     }

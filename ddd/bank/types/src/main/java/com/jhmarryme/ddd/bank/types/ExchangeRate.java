@@ -16,7 +16,7 @@ public class ExchangeRate {
         this.to = to;
     }
 
-    public Money exchange(Money fromMoney) {
+    public Money exchangeTo(Money fromMoney) {
         notNull(fromMoney);
         isTrue(this.from.equals(fromMoney.getCurrency()));
         BigDecimal targetAmount = fromMoney.getAmount().multiply(rate);

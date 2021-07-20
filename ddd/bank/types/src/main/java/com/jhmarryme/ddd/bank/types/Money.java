@@ -12,4 +12,16 @@ public class Money {
         this.amount = amount;
         this.currency = currency;
     }
+
+    public Money add(Money money) {
+        return null;
+    }
+
+    public int compareTo(Money money) {
+        return this.amount.compareTo(money.getAmount());
+    }
+
+    public Money subtract(Money money) {
+        return null;
+    }
 }
