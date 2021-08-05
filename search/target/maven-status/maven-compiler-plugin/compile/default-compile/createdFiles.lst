@@ -1,0 +1,4 @@
+com\jhmarryme\search\SearchApplication.class
+com\jhmarryme\search\pojo\Stu.class
+com\jhmarryme\search\es\dao\StuRepository.class
+com\jhmarryme\search\pojo\Stu$StuBuilder.class

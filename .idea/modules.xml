@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java-In-Action.iml" filepath="$PROJECT_DIR$/.idea/Java-In-Action.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/application/application.iml" filepath="$PROJECT_DIR$/ddd/bank/application/application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/bank.iml" filepath="$PROJECT_DIR$/ddd/bank/bank.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/ddd.iml" filepath="$PROJECT_DIR$/ddd/ddd.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/domain/domain.iml" filepath="$PROJECT_DIR$/ddd/bank/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/external/external.iml" filepath="$PROJECT_DIR$/ddd/bank/external/external.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/messaging/messaging.iml" filepath="$PROJECT_DIR$/ddd/bank/messaging/messaging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/persistence/persistence.iml" filepath="$PROJECT_DIR$/ddd/bank/persistence/persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/search/search.iml" filepath="$PROJECT_DIR$/search/search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/start/start.iml" filepath="$PROJECT_DIR$/ddd/bank/start/start.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/types/types.iml" filepath="$PROJECT_DIR$/ddd/bank/types/types.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ddd/bank/web/web.iml" filepath="$PROJECT_DIR$/ddd/bank/web/web.iml" />
+    </modules>
+  </component>
+</project>
