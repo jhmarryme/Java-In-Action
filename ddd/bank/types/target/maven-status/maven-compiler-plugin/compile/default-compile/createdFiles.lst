@@ -1,9 +1,0 @@
-com\jhmarryme\ddd\bank\exception\InvalidCurrencyException.class
-com\jhmarryme\ddd\bank\types\UserId.class
-com\jhmarryme\ddd\bank\types\Money.class
-com\jhmarryme\ddd\bank\common\SendResult.class
-com\jhmarryme\ddd\bank\types\Currency.class
-com\jhmarryme\ddd\bank\common\Result.class
-com\jhmarryme\ddd\bank\types\AccountNumber.class
-com\jhmarryme\ddd\bank\types\ExchangeRate.class
-com\jhmarryme\ddd\bank\types\AccountId.class
