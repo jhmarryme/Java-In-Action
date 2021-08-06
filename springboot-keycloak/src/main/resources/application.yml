@@ -20,4 +20,5 @@ keycloak:
       security-collections:
         - patterns:
             - '/foo/bar'
-  ssl-required: external
+  # 对云服务器做的配置
+  ssl-required: NONE
