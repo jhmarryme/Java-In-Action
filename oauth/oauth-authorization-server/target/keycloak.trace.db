@@ -1,9 +1,0 @@
-2021-08-06 16:38:55 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOGLOCK" not found; SQL statement:
-SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOGLOCK [42102-200]
-2021-08-06 16:38:59 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOG" not found; SQL statement:
-SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOG [42102-200]
-2021-08-06 16:39:01 jdbc[4]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DATABASECHANGELOG" not found; SQL statement:
-SELECT COUNT(*) FROM PUBLIC.DATABASECHANGELOG [42102-200]
