@@ -1,4 +1,4 @@
-package com.jhmarryme.controller;
+package com.jhmarryme.oauth2.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
