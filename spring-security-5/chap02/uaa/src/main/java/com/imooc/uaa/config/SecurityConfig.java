@@ -1,7 +1,6 @@
 package com.imooc.uaa.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.imooc.uaa.config.dsl.ClientErrorLoggingConfigurer;
 import com.imooc.uaa.security.UaaSuccessHandler;
 import com.imooc.uaa.security.filter.RestAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.ignoringAntMatchers("/api/**", "/admin/**", "/authorize/**"))
+            // 增加/perform_logout， 避免postman退出登陆时, 403
+            .csrf(csrf -> csrf.ignoringAntMatchers("/api/**", "/admin/**", "/authorize/**", "/perform_logout"))
 //            .apply(clientErrorLogging()).and()
             .authorizeRequests(authorizeRequests -> authorizeRequests
                 .antMatchers("/authorize/**").permitAll()
@@ -110,13 +110,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
             .ignoring()
-            .antMatchers("/public/**")
+            .antMatchers("/static/**")
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
-
-    @Bean
-    public ClientErrorLoggingConfigurer clientErrorLogging() {
-        return new ClientErrorLoggingConfigurer(new ArrayList<>());
     }
 
     @Override

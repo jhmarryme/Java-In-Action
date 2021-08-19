@@ -13,6 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 因为引用了 bootstrap等资源, 所以需要将其配置到静态资源路径中, 并在安全配置中将静态资源放行
         registry.addResourceHandler("/webjars/**")
             .addResourceLocations("/webjars/")
             .resourceChain(false);
@@ -21,6 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        // 当访问login时,
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/admin").setViewName("admin");
         registry.addViewController("/").setViewName("index");
