@@ -12,9 +12,9 @@ server:
   error:
     whitelabel:
       enabled: true
-  port: 8080
+  port: 7777
 
 spring:
   messages:
-    basename: messages
+    basename: i18n/message/messages, i18n/validator/messages
     encoding: UTF-8
