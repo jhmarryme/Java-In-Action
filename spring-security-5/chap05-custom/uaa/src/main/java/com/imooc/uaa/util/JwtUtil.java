@@ -68,7 +68,7 @@ public class JwtUtil {
 
     public boolean validateToken(String jwtToken, Key signKey) {
         try {
-            Jwts.parserBuilder().setSigningKey(JwtUtil.key).build().parseClaimsJws(jwtToken);
+            Jwts.parserBuilder().setSigningKey(signKey).build().parseClaimsJws(jwtToken);
             return true;
         } catch (ExpiredJwtException | SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException e) {
             return false;
