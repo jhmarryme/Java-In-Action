@@ -26,7 +26,6 @@ import java.util.Map;
 @Order(100)
 public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final ObjectMapper objectMapper;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,7 +45,6 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
             .rememberMe(rememberMe -> rememberMe
                 .key("someSecret")
                 .tokenValiditySeconds(86400))
-            .addFilterAt(restAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests(authorizeRequests -> authorizeRequests
                 .anyRequest().authenticated());
     }
@@ -57,46 +55,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-    private RestAuthenticationFilter restAuthenticationFilter() throws Exception {
-        RestAuthenticationFilter filter = new RestAuthenticationFilter(objectMapper);
-        filter.setAuthenticationSuccessHandler(jsonLoginSuccessHandler());
-        filter.setAuthenticationFailureHandler(jsonLoginFailureHandler());
-        filter.setAuthenticationManager(authenticationManager());
-        filter.setFilterProcessesUrl("/authorize/login");
-        return filter;
-    }
 
-    private LogoutSuccessHandler jsonLogoutSuccessHandler() {
-        return (req, res, auth) -> {
-            if (auth != null && auth.getDetails() != null) {
-                req.getSession().invalidate();
-            }
-            res.setStatus(HttpStatus.OK.value());
-            res.getWriter().println();
-            log.debug("成功退出登录");
-        };
-    }
-
-    private AuthenticationSuccessHandler jsonLoginSuccessHandler() {
-        return (req, res, auth) -> {
-            res.setStatus(HttpStatus.OK.value());
-            res.getWriter().println();
-            log.debug("认证成功");
-        };
-    }
-
-    private AuthenticationFailureHandler jsonLoginFailureHandler() {
-        return (req, res, exp) -> {
-            res.setStatus(HttpStatus.UNAUTHORIZED.value());
-            res.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            res.setCharacterEncoding("UTF-8");
-            val errData = Map.of(
-                "title", "认证失败",
-                "details", exp.getMessage()
-            );
-            res.getWriter().println(objectMapper.writeValueAsString(errData));
-        };
-    }
 }
 
 
