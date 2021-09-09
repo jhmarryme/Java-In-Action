@@ -6,19 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rabbit-consumer" />
-        <module name="rabbit-producer" />
+        <module name="rabbit-task" />
+        <module name="rabbit-api" />
+        <module name="rabbit-common" />
+        <module name="rabbit-core-producer" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rabbit-consumer" target="1.8" />
-      <module name="rabbit-producer" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="rabbit-consumer" options="-parameters" />
-      <module name="rabbit-producer" options="-parameters" />
+      <module name="rabbit-api" options="-parameters" />
+      <module name="rabbit-common" options="-parameters" />
+      <module name="rabbit-core-producer" options="-parameters" />
+      <module name="rabbit-task" options="-parameters" />
     </option>
   </component>
 </project>
