@@ -1,0 +1,9 @@
+elasticjob:
+  jobs:
+    my-simple-job:
+      cron: 0/5 * * * * ?
+      elastic-job-class: com.jhmarryme.task.job.MySimpleJob
+      sharding-total-count: 3
+  reg-center:
+    namespace: elastic-job
+    server-lists: 1.14.140.53:30061,1.14.140.53:30062,1.14.140.53:30063
