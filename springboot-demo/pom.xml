@@ -15,8 +15,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>15</java.version>
@@ -26,6 +26,7 @@
         <easyexcel.version>2.2.6</easyexcel.version>
         <hibernate.validator.version>7.0.1.Final</hibernate.validator.version>
         <jmockit.version>1.49</jmockit.version>
+        <tk.mybatis.mapper.version>2.1.5</tk.mybatis.mapper.version>
     </properties>
 
     <dependencies>
@@ -111,7 +112,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-            <version>1.18.16</version>
+            <version>1.18.20</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
