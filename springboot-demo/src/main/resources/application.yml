@@ -20,7 +20,7 @@ spring:
   datasource: # 数据源的相关配置
     type: com.zaxxer.hikari.HikariDataSource          # 数据源类型：HikariCP
     driver-class-name: com.mysql.cj.jdbc.Driver          # mysql驱动
-    url: jdbc:mysql://1.14.140.53:3306/demo?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+    url: jdbc:mysql://1.14.140.53:30010/demo?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
     password: jh541224
     hikari:
@@ -39,7 +39,7 @@ spring:
   redis:
     database: 0
     host: 1.14.140.53
-    port: 6379
+    port: 30020
     jedis:
       pool:
         max-active: 100
