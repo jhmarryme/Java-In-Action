@@ -1,0 +1,6 @@
+elasticjob:
+  jobs:
+    RetryMessageFlowJob:
+      cron: 0/5 * * * * ?
+      elastic-job-class: com.jhmarryme.esjob.RetryMessageFlowJob
+      sharding-total-count: 1
