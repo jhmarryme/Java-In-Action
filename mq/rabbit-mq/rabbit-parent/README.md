@@ -1,12 +1,18 @@
-server:
-  port: 8001
-  servlet:
-    context-path: /
+
+引用该模块时， 需要以下配置
+
+引入以下依赖
+```xml
+ <dependency>
+    <groupId>com.jhmarryme</groupId>
+    <artifactId>rabbit-producer</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
+rabbitmq 连接相关配置
+```yml
 spring:
-  application:
-    name: rabbit-producer
-  profiles:
-    active: esjob
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: NON_NULL
@@ -19,7 +25,4 @@ spring:
     virtual-host: /
     publisher-returns: true
     publisher-confirm-type: simple
-elasticjob:
-  reg-center:
-    namespace: elastic-job
-    server-lists: 1.14.140.53:30061,1.14.140.53:30062,1.14.140.53:30063
+```

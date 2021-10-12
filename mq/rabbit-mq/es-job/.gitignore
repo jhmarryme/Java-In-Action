@@ -198,5 +198,6 @@ $RECYCLE.BIN/
 # Ignore redis binary dump (dump.rdb) files
 
 *.rdb
-.idea
+
 *.iml
+.idea
