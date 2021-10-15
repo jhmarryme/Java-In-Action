@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/Java-In-Action.iml" filepath="$PROJECT_DIR$/.idea/Java-In-Action.iml" />
       <module fileurl="file://$PROJECT_DIR$/task/elastic-job/elastic-job-demo/elastic-job-demo.iml" filepath="$PROJECT_DIR$/task/elastic-job/elastic-job-demo/elastic-job-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-demo/springboot-demo.iml" filepath="$PROJECT_DIR$/springboot-demo/springboot-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot_es/springboot_es.iml" filepath="$PROJECT_DIR$/springboot_es/springboot_es.iml" />
     </modules>
   </component>
 </project>
