@@ -21,7 +21,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *
+ * 超卖现象测试类
  * @author JiaHao Wang
  * @date 2021/10/19 下午5:58
  */

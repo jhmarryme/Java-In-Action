@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+// 超卖现象参考demo
 @Service
 @Slf4j
 public class OrderService {

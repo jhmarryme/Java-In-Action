@@ -15,15 +15,13 @@ public class RedisLockController {
     private RedisTemplate redisTemplate;
 
     @RequestMapping("redisLock")
-    public String redisLock(){
+    public String redisLock() {
         log.info("我进入了方法！");
-        try (RedisLock redisLock = new RedisLock(redisTemplate,"redisKey",30)){
+        try (RedisLock redisLock = new RedisLock(redisTemplate, "redisKey", 30)) {
             if (redisLock.getLock()) {
                 log.info("我进入了锁！！");
                 Thread.sleep(15000);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,15 +30,13 @@ public class RedisLockController {
     }
 
     @RequestMapping("zkLock")
-    public String zkLock(){
+    public String zkLock() {
         log.info("我进入了方法！");
-        try (ZkLock zkLock = new ZkLock("localhost:2181","order")){
+        try (ZkLock zkLock = new ZkLock("localhost:2181", "order")) {
             if (zkLock.getLock()) {
                 log.info("我进入了锁！！");
                 Thread.sleep(15000);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
