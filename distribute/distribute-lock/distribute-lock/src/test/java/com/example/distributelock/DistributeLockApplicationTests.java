@@ -20,9 +20,9 @@ public class DistributeLockApplicationTests {
 
     @Test
     public void testZkLock() throws IOException {
-        ZkLock zkLock = new ZkLock("localhost:2181","order");
+        ZkLock zkLock = new ZkLock();
         try {
-            zkLock.getLock();
+            zkLock.getLock("order");
             zkLock.close();
         } catch (KeeperException e) {
             e.printStackTrace();

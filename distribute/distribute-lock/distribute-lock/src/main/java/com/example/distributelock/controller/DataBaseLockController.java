@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * 基于数据库悲观锁的分布式锁
+ * @author Jiahao Wang
+ */
 @RestController
 @Slf4j
-public class DemoController {
+public class DataBaseLockController {
 
     @Resource
     private DistributeLockMapper distributeLockMapper;
