@@ -1,10 +1,8 @@
 package com.example.redissonlock.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +25,7 @@ public class RedissonLockController {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             log.info("我释放了锁！！");
             rLock.unlock();
         }

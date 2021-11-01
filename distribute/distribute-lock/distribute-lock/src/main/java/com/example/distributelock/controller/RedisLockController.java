@@ -23,7 +23,7 @@ public class RedisLockController {
         try (RedisLock redisLock = new RedisLock(redisTemplate, "redisKey", 30)) {
             if (redisLock.getLock()) {
                 log.info("我进入了锁！！");
-                Thread.sleep(15000);
+                Thread.sleep(10000);
             }
         } catch (Exception e) {
             e.printStackTrace();

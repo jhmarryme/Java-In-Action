@@ -8,6 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * zookeeper分布式锁
+ *
+ * @author Jiahao Wang
+ */
 @SpringBootApplication
 public class DistributeZkLockApplication {
 
@@ -15,10 +20,14 @@ public class DistributeZkLockApplication {
         SpringApplication.run(DistributeZkLockApplication.class, args);
     }
 
-    @Bean(initMethod="start",destroyMethod = "close")
+    /**
+     * 配置 Curator客户端, 指定初始化及销毁的方法
+     *
+     * @return org.apache.curator.framework.CuratorFramework
+     */
+    @Bean(initMethod = "start", destroyMethod = "close")
     public CuratorFramework getCuratorFramework() {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
-        return client;
+        return CuratorFrameworkFactory.newClient("localhost:30061", retryPolicy);
     }
 }

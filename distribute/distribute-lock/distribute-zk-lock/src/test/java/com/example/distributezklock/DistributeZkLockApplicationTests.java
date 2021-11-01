@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
@@ -24,28 +23,26 @@ public class DistributeZkLockApplicationTests {
     public void contextLoads() {
     }
 
-
     @Test
     public void testZkLock() throws Exception {
         ZkLock zkLock = new ZkLock();
         boolean lock = zkLock.getLock("order");
-        log.info("获得锁的结果："+lock);
+        log.info("获得锁的结果：" + lock);
 
         zkLock.close();
     }
 
     @Test
-    public void testCuratorLock(){
+    public void testCuratorLock() {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-        CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:2181", retryPolicy);
+        CuratorFramework client = CuratorFrameworkFactory.newClient("localhost:30061", retryPolicy);
         client.start();
         InterProcessMutex lock = new InterProcessMutex(client, "/order");
         try {
-            if ( lock.acquire(30, TimeUnit.SECONDS) ) {
-                try  {
+            if (lock.acquire(30, TimeUnit.SECONDS)) {
+                try {
                     log.info("我获得了锁！！！");
-                }
-                finally  {
+                } finally {
                     lock.release();
                 }
             }

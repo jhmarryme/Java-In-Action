@@ -21,10 +21,14 @@ public class RedissonLockApplicationTests {
     public void contextLoads() {
     }
 
+    /**
+     * 引入Redisson的方式1: 通过Java Api引入Redisson
+     *
+     */
     @Test
     public void testRedissonLock() {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.73.130:6379");
+        config.useSingleServer().setAddress("redis://1.14.140.53:30020").setPassword("jh541224");
         RedissonClient redisson = Redisson.create(config);
 
         RLock rLock = redisson.getLock("order");
@@ -35,7 +39,7 @@ public class RedissonLockApplicationTests {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             log.info("我释放了锁！！");
             rLock.unlock();
         }

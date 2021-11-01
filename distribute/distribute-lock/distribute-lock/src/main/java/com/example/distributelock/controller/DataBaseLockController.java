@@ -31,7 +31,7 @@ public class DataBaseLockController {
         }
         log.info("我进入了锁！");
         try {
-            Thread.sleep(20000);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
