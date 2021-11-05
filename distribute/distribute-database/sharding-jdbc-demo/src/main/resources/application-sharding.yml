@@ -1,0 +1,55 @@
+spring:
+  shardingsphere:
+    # 数据源配置
+    datasource:
+      # 数据源名称，多数据源以逗号分隔
+      names: ds0,ds1
+      ds0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/master1db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: m1test
+      ds1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3308/master2db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: m2test
+    # 规则配置
+    rules:
+      sharding:
+        # 分片算法配置
+        sharding-algorithms:
+          table-inline:
+            type: INLINE
+            props:
+              # 分片算法的行表达式
+              algorithm-expression: t_order_$->{id % 2 + 1}
+          database-inline:
+            type: INLINE
+            props:
+              # 分片算法的行表达式
+              algorithm-expression: ds_${user_id % 2}
+        tables:
+          # 逻辑表名称
+          t_order:
+            # 行表达式标识符可以使用 ${...} 或 $->{...}，但前者与 Spring 本身的属性文件占位符冲突，因此在 Spring 环境中使用行表达式标识符建议使用 $->{...}
+            actual-data-nodes: ds$->{0..1}.t_order_$->{1..2}
+            databaseStrategy:
+              standard:
+                # 分片列名称
+                sharding-column: user_id
+                # 分片算法名称
+                sharding-algorithm-name: database-inline
+            # 分表策略
+            table-strategy:
+              standard:
+                # 分片列名称
+                sharding-column: order_id
+                # 分片算法名称
+                sharding-algorithm-name: table-inline
+    # 属性配置
+    props:
+      # 展示修改以后的sql语句
+      sql-show: true

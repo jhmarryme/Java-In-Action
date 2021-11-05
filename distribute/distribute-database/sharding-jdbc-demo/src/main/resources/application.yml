@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: sharding
+logging:
+  pattern:
+    dateformat: HH:mm:ss
+mybatis:
+  mapper-locations: /mybatis/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
