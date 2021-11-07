@@ -1,8 +1,9 @@
 package com.example.shardingjdbc;
 
+import com.example.shardingjdbc.dao.AreaMapper;
+import com.example.shardingjdbc.dao.OrderItemMapper;
 import com.example.shardingjdbc.dao.OrderMapper;
-import com.example.shardingjdbc.model.Order;
-import com.example.shardingjdbc.model.OrderExample;
+import com.example.shardingjdbc.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,15 +30,59 @@ class DemoApplicationTest {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Test
-    @DisplayName("测试分库分表")
-    public void whenTestSubDatabaseSubTableSuccess() {
-        Order order = new Order();
-        order.setOrderId(2);
-        order.setTotalAmount(new BigDecimal("11.11"));
-        order.setOrderStatus(1);
-        order.setUserId(2);
+    @Autowired
+    private OrderItemMapper orderItemMapper;
 
-        orderMapper.insert(order);
+    @Autowired
+    private AreaMapper areaMapper;
+
+    @Test
+    @DisplayName("测试绑定表")
+    public void whenBindingTablesSuccess() {
+        int userId = 1;
+        for (int orderId = 1; orderId <= 8; orderId++) {
+            Order order = Order.builder()
+                    .orderId(orderId)
+                    .userId(userId)
+                    .orderStatus(1)
+                    .totalAmount(new BigDecimal("11.11"))
+                    .build();
+            OrderItem item = OrderItem.builder()
+                    .id(orderId)
+                    .pruductName("test" + userId)
+                    .orderId(orderId)
+                    .userId(userId)
+                    .build();
+            int orderInsert = orderMapper.insert(order);
+            int orderItemInsert = orderItemMapper.insert(item);
+            System.out.printf("res[%d] = %d, %d", orderId, orderInsert, orderItemInsert);
+            if (orderId % 2 == 0) {
+                userId++;
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("测试全局表")
+    public void whenInsertGlobalSuccess() {
+        for (int i = 0; i < 4; i++) {
+            Area area = Area.builder()
+                    .id(i)
+                    .name("test")
+                    .build();
+            areaMapper.insert(area);
+        }
+    }
+
+    @Test
+    @DisplayName("测试读写分离")
+    public void whenWriteReadSplitSuccess() {
+        OrderItemExample example = new OrderItemExample();
+        example.createCriteria()
+                .andUserIdEqualTo(3);
+        for (int i = 0; i < 10; i++) {
+            List<OrderItem> orderItems = orderItemMapper.selectByExample(example);
+            orderItems.forEach(System.out::println);
+        }
     }
 }

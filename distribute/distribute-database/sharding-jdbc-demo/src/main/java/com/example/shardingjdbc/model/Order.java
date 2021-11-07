@@ -1,7 +1,10 @@
 package com.example.shardingjdbc.model;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
+@Builder
 public class Order {
     /**
      *
