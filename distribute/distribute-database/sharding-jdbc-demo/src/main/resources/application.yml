@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: sharding
+    active: sharding-snowflake
 logging:
   pattern:
     dateformat: HH:mm:ss

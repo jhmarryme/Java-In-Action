@@ -41,11 +41,14 @@ spring:
           t_order:
             # 行表达式标识符可以使用 ${...} 或 $->{...}，但前者与 Spring 本身的属性文件占位符冲突，因此在 Spring 环境中使用行表达式标识符建议使用 $->{...}
             actual-data-nodes: ds-$->{0..1}.t_order_$->{1..2}
+            key-generate-strategy:
+              column: order_id
+              key-generator-name: snowflake
             # 分表策略
             table-strategy:
               standard:
                 # 分片算法名称
-                sharding-algorithm-name: t-order-inline
+                sharding-algorithm-name: t-order-custom-class
                 # 分片列名称
                 sharding-column: order_id
             # 分库策略, 已经设置了默认的策略, 这里可以直接注释掉
@@ -55,10 +58,13 @@ spring:
           #               sharding-column: user_id
           t_order_item:
             actual-data-nodes: ds-$->{0..1}.t_order_item_$->{1..2}
+            key-generate-strategy:
+              column: id
+              key-generator-name: snowflake
             table-strategy:
               standard:
                 # 分片算法名称
-                sharding-algorithm-name: t-order-item-inline
+                sharding-algorithm-name: t-order-item-custom-class
                 # 分片列名称
                 sharding-column: order_id
         # 绑定表的配置
@@ -93,6 +99,29 @@ spring:
             props:
               algorithm-expression: t_order_item_$->{order_id % 2 + 1}
             type: INLINE
+          # 自定义的分片策略
+          t-order-custom-class:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.example.shardingjdbc.sharding.ClassBasedStandardShardingAlgorithmFixture
+          t-order-item-custom-class:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.example.shardingjdbc.sharding.ClassBasedStandardShardingAlgorithmFixture
+
+        # 定义key的生成策略
+        key-generators:
+          snowflake:
+            props:
+              # 工作机器唯一标识, 要小于 2^10, 也就是1024, sharding-jdbc的机房id和机器id是写在一起的
+              worker-id: 123
+              # 最大抖动上限值，范围[0, 4096)。注：若使用此算法生成值作分片值，建议配置此属性。此算法在不同毫秒内所生成的 key 取模 2^n (2^n一般为分库或分表数) 之后结果总为 0 或 1。为防止上述分片问题，建议将此属性值配置为 (2^n)-1
+              # max-vibration-offset:
+              # 最大容忍时钟回退时间，单位：毫秒
+              max-tolerate-time-difference-milliseconds: 10
+            type: SNOWFLAKE
 
         # 读写分离配置
         readwrite-splitting:

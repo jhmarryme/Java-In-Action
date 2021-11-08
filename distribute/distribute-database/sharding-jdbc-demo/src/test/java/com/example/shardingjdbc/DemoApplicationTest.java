@@ -42,7 +42,7 @@ class DemoApplicationTest {
         int userId = 1;
         for (int orderId = 1; orderId <= 8; orderId++) {
             Order order = Order.builder()
-                    .orderId(orderId)
+                    // .orderId(orderId)
                     .userId(userId)
                     .orderStatus(1)
                     .totalAmount(new BigDecimal("11.11"))
@@ -83,6 +83,24 @@ class DemoApplicationTest {
         for (int i = 0; i < 10; i++) {
             List<OrderItem> orderItems = orderItemMapper.selectByExample(example);
             orderItems.forEach(System.out::println);
+        }
+    }
+
+    @Test
+    @DisplayName("测试绑定表-雪花ID")
+    public void whenSnowFlakeBindingTablesSuccess() {
+        int userId = 1;
+        for (int i = 1; i <= 8; i++) {
+            Order order = Order.builder()
+                    .userId(userId)
+                    .orderStatus(1)
+                    .totalAmount(new BigDecimal("11.11"))
+                    .build();
+            int insertSelective = orderMapper.insertSelective(order);
+            System.out.println("insertSelective = " + insertSelective);
+            if (i % 2 == 0) {
+                userId++;
+            }
         }
     }
 }

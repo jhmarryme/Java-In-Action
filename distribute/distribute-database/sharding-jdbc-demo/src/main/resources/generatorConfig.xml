@@ -29,7 +29,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table schema="master1db" tableName="area" domainObjectName="Area" ></table>
+        <table schema="master1db" tableName="t_order_1" domainObjectName="Order" ></table>
 
 
     </context>
