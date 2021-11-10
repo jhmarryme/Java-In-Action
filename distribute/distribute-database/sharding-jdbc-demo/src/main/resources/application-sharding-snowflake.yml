@@ -78,9 +78,6 @@ spring:
           standard:
             sharding-algorithm-name: database-inline
             sharding-column: user_id
-        defaultTableStrategy:
-          none:
-
         # 分片算法配置
         sharding-algorithms:
           # 数据库的分片策略, 根据user_id决定坐落在哪个库
@@ -123,26 +120,26 @@ spring:
               max-tolerate-time-difference-milliseconds: 10
             type: SNOWFLAKE
 
-        # 读写分离配置
-        readwrite-splitting:
-          data-sources:
-            # 这里的数据源的名称与actual-data-nodes中的定义的保持一致
-            ds-0:
-              load-balancer-name: round_robin
-              # 读库
-              read-data-source-names: slave-0
-              # 写库
-              write-data-source-name: ds-0
-            ds-1:
-              load-balancer-name: round_robin
-              read-data-source-names: slave-1
-              write-data-source-name: ds-1
-          # 负载均衡的策略
-          load-balancers:
-            round_robin:
-              type: ROUND_ROBIN
+      # 读写分离配置
+      readwrite-splitting:
+        data-sources:
+          # 这里的数据源的名称与actual-data-nodes中的定义的保持一致
+          ds-0:
+            load-balancer-name: round_robin
+            # 读库
+            read-data-source-names: slave-0
+            # 写库
+            write-data-source-name: ds-0
+          ds-1:
+            load-balancer-name: round_robin
+            read-data-source-names: slave-1
+            write-data-source-name: ds-1
+        # 负载均衡的策略
+        load-balancers:
+          round_robin:
+            type: ROUND_ROBIN
 
-      # 属性配置
-      props:
-        # 展示修改以后的sql语句
-        sql-show: true
+    # 属性配置
+    props:
+      # 展示修改以后的sql语句
+      sql-show: true

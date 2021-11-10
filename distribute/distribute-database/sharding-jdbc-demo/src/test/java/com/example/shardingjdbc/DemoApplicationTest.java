@@ -42,7 +42,7 @@ class DemoApplicationTest {
         int userId = 1;
         for (int orderId = 1; orderId <= 8; orderId++) {
             Order order = Order.builder()
-                    // .orderId(orderId)
+                    .orderId((long) orderId)
                     .userId(userId)
                     .orderStatus(1)
                     .totalAmount(new BigDecimal("11.11"))
@@ -50,7 +50,7 @@ class DemoApplicationTest {
             OrderItem item = OrderItem.builder()
                     .id(orderId)
                     .pruductName("test" + userId)
-                    .orderId(orderId)
+                    .orderId((long) orderId)
                     .userId(userId)
                     .build();
             int orderInsert = orderMapper.insert(order);

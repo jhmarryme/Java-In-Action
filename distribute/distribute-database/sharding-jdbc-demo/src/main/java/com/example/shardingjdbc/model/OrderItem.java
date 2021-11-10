@@ -22,7 +22,7 @@ public class OrderItem {
      *
      * @mbg.generated Sun Nov 07 21:03:54 CST 2021
      */
-    private Integer orderId;
+    private Long orderId;
 
     /**
      *
@@ -74,7 +74,7 @@ public class OrderItem {
      *
      * @mbg.generated Sun Nov 07 21:03:54 CST 2021
      */
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
@@ -86,7 +86,7 @@ public class OrderItem {
      *
      * @mbg.generated Sun Nov 07 21:03:54 CST 2021
      */
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
