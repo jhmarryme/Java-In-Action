@@ -1,0 +1,46 @@
+package com.example.xademo.config.errorConfig;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+import java.io.IOException;
+
+/**
+ *
+ * @author JiaHao Wang
+ */
+@MapperScan(value = "com.example.xademo.db2.dao", sqlSessionFactoryRef = "sqlSessionFactoryBean2")
+// @Configuration
+public class Db2Config {
+
+    @Bean("db2")
+    public DataSource db2() {
+        MysqlDataSource dataSource = new MysqlDataSource();
+        dataSource.setUser("root");
+        dataSource.setPassword("jh541224");
+        dataSource.setUrl("jdbc:mysql://1.14.140.53:30012/xa_2");
+        return dataSource;
+    }
+
+    @Bean("sqlSessionFactoryBean2")
+    public SqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("db2") DataSource dataSource) throws IOException {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setMapperLocations(resourceResolver.getResources("mybatis/db2/*.xml"));
+        return sqlSessionFactoryBean;
+    }
+    // @Bean("tm2")
+    // public PlatformTransactionManager transactionManager(@Qualifier("db2") DataSource dataSource) {
+    //     return new DataSourceTransactionManager(dataSource);
+    // }
+}
