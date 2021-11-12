@@ -15,6 +15,8 @@ import javax.transaction.UserTransaction;
 @Configuration
 public class TmConfig {
 
+    public static final String DB_PWD = "jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD";
+
     // 只需要使用一个Jta事务管理器
     @Bean("xaTransaction")
     public JtaTransactionManager jtaTransactionManager() {

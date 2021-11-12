@@ -1,8 +1,11 @@
 package com.example.xademo.config.errorConfig;
 
+import com.example.xademo.config.xaConfig.TmConfig;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import org.jasypt.encryption.StringEncryptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +25,14 @@ import java.io.IOException;
 // @Configuration
 public class Db2Config {
 
+    @Autowired
+    private StringEncryptor stringEncryptor;
+
     @Bean("db2")
     public DataSource db2() {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser("root");
-        dataSource.setPassword("jh541224");
+        dataSource.setPassword(stringEncryptor.decrypt(TmConfig.DB_PWD));
         dataSource.setUrl("jdbc:mysql://1.14.140.53:30012/xa_2");
         return dataSource;
     }

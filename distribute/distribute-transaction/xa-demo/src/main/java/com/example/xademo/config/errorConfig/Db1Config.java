@@ -1,9 +1,12 @@
 package com.example.xademo.config.errorConfig;
 
+import com.example.xademo.config.xaConfig.TmConfig;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.mysql.cj.jdbc.MysqlXADataSource;
+import org.jasypt.encryption.StringEncryptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
@@ -23,12 +26,14 @@ import java.io.IOException;
 @MapperScan(value = "com.example.xademo.db1.dao", sqlSessionFactoryRef = "sqlSessionFactoryBean1")
 // @Configuration
 public class Db1Config {
+    @Autowired
+    private StringEncryptor stringEncryptor;
 
     @Bean("db1")
     public DataSource db1() {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUser("root");
-        dataSource.setPassword("jh541224");
+        dataSource.setPassword(stringEncryptor.decrypt(TmConfig.DB_PWD));
         dataSource.setUrl("jdbc:mysql://1.14.140.53:30011/xa_1");
         return dataSource;
     }
