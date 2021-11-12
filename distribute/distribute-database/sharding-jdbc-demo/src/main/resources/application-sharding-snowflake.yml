@@ -7,25 +7,25 @@ spring:
       ds-0:
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://1.14.140.53:30011/master1db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
-        password: jh541224
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
         type: com.zaxxer.hikari.HikariDataSource
         username: root
       ds-1:
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://1.14.140.53:30012/master2db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
-        password: jh541224
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
         type: com.zaxxer.hikari.HikariDataSource
         username: root
       slave-0:
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://1.14.140.53:30013/master1db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
-        password: jh541224
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
         type: com.zaxxer.hikari.HikariDataSource
         username: root
       slave-1:
         driver-class-name: com.mysql.jdbc.Driver
         jdbc-url: jdbc:mysql://1.14.140.53:30014/master2db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
-        password: jh541224
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
         type: com.zaxxer.hikari.HikariDataSource
         username: root
     mode:

@@ -3,7 +3,10 @@ package com.example.shardingjdbc;
 import com.example.shardingjdbc.dao.AreaMapper;
 import com.example.shardingjdbc.dao.OrderItemMapper;
 import com.example.shardingjdbc.dao.OrderMapper;
-import com.example.shardingjdbc.model.*;
+import com.example.shardingjdbc.model.Area;
+import com.example.shardingjdbc.model.Order;
+import com.example.shardingjdbc.model.OrderItem;
+import com.example.shardingjdbc.model.OrderItemExample;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,12 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
