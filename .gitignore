@@ -202,5 +202,7 @@ $RECYCLE.BIN/
 .idea
 *.iml
 .jpb
-distribute/distribute-transaction/xa-demo/.idea
-distribute/distribute-transaction/xa-demo/*.iml
+distribute/*/.idea
+distribute/*/*/.idea
+distribute/*/*.iml
+distribute/*/*/*.iml
