@@ -202,3 +202,7 @@ $RECYCLE.BIN/
 .idea
 *.iml
 .jpb
+distribute/*/.idea
+distribute/*/*/.idea
+distribute/*/*.iml
+distribute/*/*/*.iml

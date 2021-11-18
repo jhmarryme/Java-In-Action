@@ -1,0 +1,14 @@
+server:
+  port: 7777
+# jasypt 密码加密配置
+jasypt:
+  encryptor:
+    # 加密盐值
+    password: jhmarryme.com
+    # 加密算法设置 3.0.0 以后
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
