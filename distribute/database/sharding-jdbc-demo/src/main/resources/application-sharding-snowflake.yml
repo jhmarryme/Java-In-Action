@@ -1,0 +1,145 @@
+spring:
+  shardingsphere:
+    # 数据源的配置
+    datasource:
+      # 数据源名称，多数据源以逗号分隔, 其中slave-0/1是从库
+      names: ds-0,ds-1,slave-0,slave-1
+      ds-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://1.14.140.53:30011/master1db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+      ds-1:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://1.14.140.53:30012/master2db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+      slave-0:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://1.14.140.53:30013/master1db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+      slave-1:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://1.14.140.53:30014/master2db?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+    mode:
+      overwrite: true
+      repository:
+        type: File
+      type: Standalone
+    # 规则配置
+    rules:
+      sharding:
+        tables:
+          # 逻辑表名称
+          t_order:
+            # 行表达式标识符可以使用 ${...} 或 $->{...}，但前者与 Spring 本身的属性文件占位符冲突，因此在 Spring 环境中使用行表达式标识符建议使用 $->{...}
+            actual-data-nodes: ds-$->{0..1}.t_order_$->{1..2}
+            key-generate-strategy:
+              column: order_id
+              key-generator-name: snowflake
+            # 分表策略
+            table-strategy:
+              standard:
+                # 分片算法名称
+                sharding-algorithm-name: t-order-custom-class
+                # 分片列名称
+                sharding-column: order_id
+            # 分库策略, 已经设置了默认的策略, 这里可以直接注释掉
+          #           database-strategy:
+          #             standard:
+          #               sharding-algorithm-name: database-inline
+          #               sharding-column: user_id
+          t_order_item:
+            actual-data-nodes: ds-$->{0..1}.t_order_item_$->{1..2}
+            key-generate-strategy:
+              column: id
+              key-generator-name: snowflake
+            table-strategy:
+              standard:
+                # 分片算法名称
+                sharding-algorithm-name: t-order-item-custom-class
+                # 分片列名称
+                sharding-column: order_id
+        # 绑定表的配置
+        binding-tables:
+          - t_order,t_order_item
+        # 广播表(全局表)
+        broadcast-tables:
+          - area
+        # 可以配置默认的分库策略
+        default-database-strategy:
+          standard:
+            sharding-algorithm-name: database-inline
+            sharding-column: user_id
+        # 分片算法配置
+        sharding-algorithms:
+          # 数据库的分片策略, 根据user_id决定坐落在哪个库
+          database-inline:
+            props:
+              # 分片算法的行表达式
+              algorithm-expression: ds-$->{user_id % 2}
+            type: INLINE
+          # 订单表的分片策略, 根据订单id决定坐落在哪个序号的订单表
+          t-order-inline:
+            props:
+              algorithm-expression: t_order_$->{order_id % 2 + 1}
+            type: INLINE
+          # 用于绑定表的策略 需要和 t_order的算法保持一致
+          t-order-item-inline:
+            props:
+              algorithm-expression: t_order_item_$->{order_id % 2 + 1}
+            type: INLINE
+          # 自定义的分片策略
+          t-order-custom-class:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.example.shardingjdbc.sharding.ClassBasedStandardShardingAlgorithmFixture
+          t-order-item-custom-class:
+            type: CLASS_BASED
+            props:
+              strategy: standard
+              algorithmClassName: com.example.shardingjdbc.sharding.ClassBasedStandardShardingAlgorithmFixture
+
+        # 定义key的生成策略
+        key-generators:
+          snowflake:
+            props:
+              # 工作机器唯一标识, 要小于 2^10, 也就是1024, sharding-jdbc的机房id和机器id是写在一起的
+              worker-id: 123
+              # 最大抖动上限值，范围[0, 4096)。注：若使用此算法生成值作分片值，建议配置此属性。此算法在不同毫秒内所生成的 key 取模 2^n (2^n一般为分库或分表数) 之后结果总为 0 或 1。为防止上述分片问题，建议将此属性值配置为 (2^n)-1
+              # max-vibration-offset:
+              # 最大容忍时钟回退时间，单位：毫秒
+              max-tolerate-time-difference-milliseconds: 10
+            type: SNOWFLAKE
+
+      # 读写分离配置
+      readwrite-splitting:
+        data-sources:
+          # 这里的数据源的名称与actual-data-nodes中的定义的保持一致
+          ds-0:
+            load-balancer-name: round_robin
+            # 读库
+            read-data-source-names: slave-0
+            # 写库
+            write-data-source-name: ds-0
+          ds-1:
+            load-balancer-name: round_robin
+            read-data-source-names: slave-1
+            write-data-source-name: ds-1
+        # 负载均衡的策略
+        load-balancers:
+          round_robin:
+            type: ROUND_ROBIN
+
+    # 属性配置
+    props:
+      # 展示修改以后的sql语句
+      sql-show: true

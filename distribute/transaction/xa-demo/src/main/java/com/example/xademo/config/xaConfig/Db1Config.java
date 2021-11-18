@@ -1,0 +1,48 @@
+package com.example.xademo.config.xaConfig;
+
+import com.mysql.cj.jdbc.MysqlXADataSource;
+import org.jasypt.encryption.StringEncryptor;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
+
+import javax.sql.DataSource;
+import java.io.IOException;
+
+/**
+ *
+ * @author JiaHao Wang
+ */
+@MapperScan(value = "com.example.xademo.db1.dao", sqlSessionFactoryRef = "sqlSessionFactoryBean1")
+@Configuration
+public class Db1Config {
+    @Autowired
+    private StringEncryptor stringEncryptor;
+
+    @Bean("db1")
+    public DataSource db1() {
+        MysqlXADataSource xaDataSource = new MysqlXADataSource();
+        xaDataSource.setUser("root");
+        xaDataSource.setPassword(stringEncryptor.decrypt(TmConfig.DB_PWD));
+        xaDataSource.setUrl("jdbc:mysql://1.14.140.53:30011/xa_1");
+
+        AtomikosDataSourceBean atomikosDataSourceBean = new AtomikosDataSourceBean();
+        atomikosDataSourceBean.setXaDataSource(xaDataSource);
+        return atomikosDataSourceBean;
+    }
+
+    @Bean("sqlSessionFactoryBean1")
+    public SqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("db1") DataSource dataSource) throws IOException {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setMapperLocations(resourceResolver.getResources("mybatis/db1/*.xml"));
+        return sqlSessionFactoryBean;
+    }
+}

@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: sharding-snowflake
+logging:
+  pattern:
+    dateformat: HH:mm:ss
+mybatis:
+  mapper-locations: /mybatis/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+# jasypt 密码加密配置
+jasypt:
+  encryptor:
+    # 加密算法设置 3.0.0 以后
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    password: jhmarryme.com
