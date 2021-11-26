@@ -9,5 +9,12 @@ eureka:
   instance:
     hostname: localhost
   client:
+    # 因为只是单节点注册中心, server不需要向其他server再注册了
     register-with-eureka: false
+    # 也不需要在拉取注册信息
     fetch-registry: false
+#  server:
+#    # 关闭自我保护模式（缺省为打开）
+#    enable-self-preservation: false
+#    # 扫描失效服务的间隔时间（缺省为60*1000ms）
+#    eviction-interval-timer-in-ms: 10000
