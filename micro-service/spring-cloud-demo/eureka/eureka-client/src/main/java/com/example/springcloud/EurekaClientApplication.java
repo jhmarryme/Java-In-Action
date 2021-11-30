@@ -3,6 +3,7 @@ package com.example.springcloud;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
@@ -11,7 +12,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @date 2021/11/24 下午8:32
  */
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class EurekaClientApplication {
 
     public static void main(String[] args) {
