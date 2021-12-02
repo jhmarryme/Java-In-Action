@@ -10,6 +10,10 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:20000/eureka
 
+eureka-client:
+  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.example.rules.MyRule
 #eureka:
 #  client:
 #    service-url:
