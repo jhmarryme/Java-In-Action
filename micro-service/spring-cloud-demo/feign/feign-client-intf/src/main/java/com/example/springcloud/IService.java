@@ -5,6 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -19,4 +20,7 @@ public interface IService {
 
     @PostMapping("/sayHi")
     Friend sayHiPost(@RequestBody Friend friend);
+
+    @PostMapping("/retry")
+    String retry(@RequestParam(name = "timeout") int timeout);
 }

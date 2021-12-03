@@ -1,10 +1,7 @@
 package com.example.springcloud;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -25,5 +22,10 @@ public class Controller {
     @PostMapping("/sayHi")
     public Friend sayHiPost(@RequestBody Friend friend) {
         return service.sayHiPost(friend);
+    }
+
+    @GetMapping("/retry")
+    public String retry(@RequestParam(name = "timeout") Integer timeout) {
+        return service.retry(timeout);
     }
 }
