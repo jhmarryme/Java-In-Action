@@ -1,7 +1,9 @@
 spring:
   application:
     name: feign-consumer-advanced
-
+### Feign - 当Bean名字一样的时候，允许覆盖注册
+#  main:
+#    allow-bean-definition-overriding: true
 server:
   port: 40003
 
