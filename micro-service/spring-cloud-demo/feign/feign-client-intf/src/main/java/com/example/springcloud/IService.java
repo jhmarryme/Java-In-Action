@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author JiaHao Wang
  * @date 2021/12/1 下午3:34
  */
-@FeignClient("feign-client")
+@FeignClient(name = "feign-client", path = "/my-feign-client")
 public interface IService {
 
     @GetMapping("/sayHi")

@@ -4,7 +4,8 @@ spring:
 
 server:
   port: 40001
-
+  servlet:
+    context-path: /my-feign-client
 eureka:
   client:
     service-url:
