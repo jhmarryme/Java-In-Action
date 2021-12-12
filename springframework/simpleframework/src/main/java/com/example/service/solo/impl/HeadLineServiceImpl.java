@@ -4,9 +4,11 @@ package com.example.service.solo.impl;
 import com.example.entity.bo.HeadLine;
 import com.example.entity.dto.Result;
 import com.example.service.solo.HeadLineService;
+import org.springframework.core.annotation.Service;
 
 import java.util.List;
 
+@Service
 public class HeadLineServiceImpl implements HeadLineService {
 
     @Override

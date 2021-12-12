@@ -17,6 +17,7 @@ class ClassUtilTest {
     @Test
     void extractPackageClass() {
         Set<Class<?>> classSet = ClassUtil.extractPackageClass("com.example.entity");
+        classSet.forEach(System.out::println);
         assertEquals(4, classSet.size());
     }
 }

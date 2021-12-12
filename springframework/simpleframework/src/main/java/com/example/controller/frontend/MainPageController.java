@@ -3,10 +3,12 @@ package com.example.controller.frontend;
 import com.example.entity.dto.MainPageInfoDTO;
 import com.example.entity.dto.Result;
 import com.example.service.combine.HeadLineShopCategoryCombineService;
+import org.springframework.core.annotation.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Controller
 public class MainPageController {
 
     private HeadLineShopCategoryCombineService headLineShopCategoryCombineService;

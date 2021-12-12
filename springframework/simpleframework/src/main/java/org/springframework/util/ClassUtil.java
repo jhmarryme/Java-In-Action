@@ -3,6 +3,8 @@ package org.springframework.util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
@@ -33,7 +35,6 @@ public class ClassUtil {
         URL url = classLoader.getResource(packageName.replace(".", "/"));
         if (url == null) {
             log.warn("unable to retrieve anything from package: " + packageName);
-            // System.out.println("unable to retrieve anything from package: " + packageName);
             return Collections.emptySet();
         }
         // 3. 依据不同的资源类型，采用不同的方式获取资源的集合
@@ -45,6 +46,29 @@ public class ClassUtil {
         }
 
         return classSet;
+    }
+
+    /**
+     * 实例化class
+     *
+     * @author Jiahao Wang
+     * @date 2021/12/12 2:18 下午
+     * @param clazz Class
+     * @param accessible 是否支持创建出私有class对象的实例
+     * @return T 类的实例
+     */
+    public static <T> T newInstance(Class<?> clazz, boolean accessible) {
+        try {
+            Constructor<?> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(accessible);
+            return (T) constructor.newInstance();
+        } catch (Exception e) {
+            log.error("newInstance error", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ClassUtil() {
     }
 
     /**
@@ -124,7 +148,6 @@ public class ClassUtil {
             return Class.forName(className);
         } catch (ClassNotFoundException e) {
             log.error("load class error:", e);
-            // System.out.println("load class error:"+ e);
             throw new RuntimeException(e);
         }
     }
@@ -139,5 +162,6 @@ public class ClassUtil {
     private static ClassLoader getClassLoader() {
         return Thread.currentThread().getContextClassLoader();
     }
+
 
 }

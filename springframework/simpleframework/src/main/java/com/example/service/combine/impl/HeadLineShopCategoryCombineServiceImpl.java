@@ -7,9 +7,11 @@ import com.example.entity.dto.Result;
 import com.example.service.combine.HeadLineShopCategoryCombineService;
 import com.example.service.solo.HeadLineService;
 import com.example.service.solo.ShopCategoryService;
+import org.springframework.core.annotation.Service;
 
 import java.util.List;
 
+@Service
 public class HeadLineShopCategoryCombineServiceImpl implements HeadLineShopCategoryCombineService {
 
     private HeadLineService headLineService;

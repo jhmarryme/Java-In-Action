@@ -4,11 +4,13 @@ package com.example.controller.superadmin;
 import com.example.entity.bo.HeadLine;
 import com.example.entity.dto.Result;
 import com.example.service.solo.HeadLineService;
+import org.springframework.core.annotation.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Controller
 public class HeadLineOperationController {
 
     private HeadLineService headLineService;
