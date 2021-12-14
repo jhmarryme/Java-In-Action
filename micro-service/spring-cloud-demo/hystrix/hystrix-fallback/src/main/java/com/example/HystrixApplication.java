@@ -1,5 +1,6 @@
 package com.example;
 
+import feign.Feign;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,6 +20,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class HystrixApplication {
 
     public static void main(String[] args) {
+        // try {
+        //     System.out.println(Feign.configKey(MyService.class, MyService.class.getMethod("retry", int.class)));
+        // } catch (NoSuchMethodException e) {
+        //     e.printStackTrace();
+        // }
         new SpringApplicationBuilder(HystrixApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);

@@ -11,10 +11,38 @@ eureka:
 
 feign:
   hystrix:
-    # 开启Feign下面的Hystrix功能
-    enabled: true
+    enabled: true # 开启Feign下面的Hystrix功能
 hystrix:
   command:
     default:
       fallback:
-        enabled: true
+        enabled: true # 是否开启服务降级
+      execution:
+        timeout:
+          enabled: true # 全局超时
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000 # 超时时间
+            interruptOnTimeout: true # 超时以后终止线程
+            interruptOnFutureCancel: true # 取消的时候终止线程
+    # 针对commandKey方法级别的超时设置
+    cacheKey:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000 # 超时时间
+            interruptOnTimeout: true # 超时以后终止线程
+            interruptOnFutureCancel: true # 取消的时候终止线程
+
+feign-client:
+  ribbon:
+    # 每台机器最大重试次数
+    MaxAutoRetries: 2
+    # 可以再重试几台机器
+    MaxAutoRetriesNextServer: 2
+    # 连接超时
+    ConnectTimeout: 1000
+    # 业务处理超时
+    ReadTimeout: 8000
+    # 在所有HTTP Method进行重试
+    OkToRetryOnAllOperations: true
