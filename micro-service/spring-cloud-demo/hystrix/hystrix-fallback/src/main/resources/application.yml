@@ -22,9 +22,16 @@ hystrix:
           enabled: true # 全局超时
         isolation:
           thread:
-            timeoutInMilliseconds: 2000 # 超时时间
+            timeoutInMilliseconds: 1000 # 超时时间
             interruptOnTimeout: true # 超时以后终止线程
             interruptOnFutureCancel: true # 取消的时候终止线程
+      circuitBreaker:
+        requestVolumeThreshold: 5 # 熔断的前提条件（请求的数量），在一定的时间窗口内，请求达到5个以后，才开始进行熔断判断
+        errorThresholdPercentage: 50 # 超过50%的失败请求，则熔断开关开启
+        sleepWindowInMilliseconds: 15000 # 当熔断开启以后，经过多少秒再进入半开状态
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 20000 # 配置时间窗口
     # 针对commandKey方法级别的超时设置
     cacheKey:
       execution:

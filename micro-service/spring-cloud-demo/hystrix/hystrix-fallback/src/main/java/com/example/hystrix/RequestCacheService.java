@@ -26,7 +26,7 @@ public class RequestCacheService {
         friend.setName(name);
         friend = service.sayHiPost(friend);
         log.info("after requesting cache " + name);
-        Thread.sleep(3000);
+        // Thread.sleep(3000);
         return friend;
     }
 
