@@ -26,4 +26,5 @@ public interface IService {
 
     @GetMapping("/error")
     String error();
+
 }

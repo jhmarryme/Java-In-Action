@@ -1,5 +1,6 @@
 package com.example.springcloud;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class Controller implements IService{
     }
 
     @Override
+    @HystrixCommand(commandKey = "retryKey", fallbackMethod = "retryFallback")
     public String retry(@RequestParam(name = "timeout") int timeout) {
         while (--timeout >= 0) {
             try {
@@ -43,7 +45,20 @@ public class Controller implements IService{
     }
 
     @Override
+    @HystrixCommand(fallbackMethod = "errorFallback")
     public String error() {
         throw new RuntimeException("black sheep");
     }
+
+    public String errorFallback() {
+        log.info("服务端降级响应errorFallback");
+
+        return "服务端降级响应errorFallback";
+    }
+
+    public String retryFallback(int timeout) {
+        log.info("服务端降级响应retryFallback");
+        return "服务端降级响应retryFallback";
+    }
+
 }
