@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +18,9 @@ import java.util.Set;
 public class ClassUtil {
 
     public static final String FILE_PROTOCOL = "file";
+
+    private ClassUtil() {
+    }
 
     /**
      * 扫描包下所有文件, 并获取所有的类的set
@@ -68,11 +71,28 @@ public class ClassUtil {
         }
     }
 
-    private ClassUtil() {
+    /**
+     * 为类实例中的成员变量赋值
+     *
+     * @author Jiahao Wang
+     * @date 2021/12/20 9:28 下午
+     * @param field 成员变量
+     * @param target 类实例
+     * @param value 成员变量的值
+     * @param accessible 是否允许设置私有属性
+     */
+    public static void setField(Field field, Object target, Object value, boolean accessible) {
+        field.setAccessible(accessible);
+        try {
+            field.set(target, value);
+        } catch (IllegalAccessException e) {
+            log.error("setField error", e);
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     *
+     * 找到要扫描的包下的所有class文件, 转换为class对象存入Set中
      *
      * @author Jiahao Wang
      * @date 2021/12/8 10:07 下午
@@ -81,13 +101,14 @@ public class ClassUtil {
      * @param packageName 扫描的包名
      */
     private static void extractClassFile(Set<Class<?>> classSet, File packageDirectory, String packageName) {
-
         // 递归结束条件: 当前 file 非文件夹
         if (!packageDirectory.isDirectory()) {
             return;
         }
 
-        // 是文件夹时, 遍历当前目录的所有 file
+        // 当前file 为是目录时, 遍历目录下所有 子file
+        // 1. 找出 当前file 下所有是目录的 子file
+        // 2. 将 当前file 下所有不是目录的且后缀名为 .class 的 子file, 转换为Class对象, 存入Set中
         File[] files = packageDirectory.listFiles(file -> {
             // file 为文件夹, 还需要继续遍历
             if (file.isDirectory()) {
@@ -104,6 +125,7 @@ public class ClassUtil {
             return false;
         });
 
+        // 继续遍历所有的 子file
         if (files != null) {
             for (File file : files) {
                 // 递归
@@ -162,6 +184,5 @@ public class ClassUtil {
     private static ClassLoader getClassLoader() {
         return Thread.currentThread().getContextClassLoader();
     }
-
 
 }

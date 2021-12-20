@@ -8,13 +8,17 @@ import com.example.service.combine.HeadLineShopCategoryCombineService;
 import com.example.service.solo.HeadLineService;
 import com.example.service.solo.ShopCategoryService;
 import org.springframework.core.annotation.Service;
+import org.springframework.inject.annotation.Autowired;
 
 import java.util.List;
 
 @Service
 public class HeadLineShopCategoryCombineServiceImpl implements HeadLineShopCategoryCombineService {
 
+    @Autowired
     private HeadLineService headLineService;
+
+    @Autowired
     private ShopCategoryService shopCategoryService;
 
     @Override

@@ -5,6 +5,7 @@ import com.example.entity.bo.ShopCategory;
 import com.example.entity.dto.Result;
 import com.example.service.solo.ShopCategoryService;
 import org.springframework.core.annotation.Controller;
+import org.springframework.inject.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import java.util.List;
 @Controller
 public class ShopCategoryOperationController {
 
+    @Autowired
     private ShopCategoryService shopCategoryService;
 
     public Result<Boolean> addShopCategory(HttpServletRequest req, HttpServletResponse resp) {

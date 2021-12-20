@@ -64,8 +64,8 @@ public class BeanContainer {
             log.warn("【WARN】BeanContainer has been loaded");
             return;
         }
+        // 获取路径下所有的class对象
         Set<Class<?>> classSet = ClassUtil.extractPackageClass(packageName);
-
         if (ValidationUtil.isEmpty(classSet)) {
             log.warn("【WARN】extract nothing from packageName" + packageName);
             return;
