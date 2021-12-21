@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      name: config-consumer
+      uri: http://localhost:40009
+      profile: prod
+      label: main
+server:
+  port: 40010
+
+# 读取远程配置获取属性
+myWords: ${words}
