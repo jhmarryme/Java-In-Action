@@ -4,6 +4,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
  *
@@ -11,11 +12,11 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @date 2021/12/20 下午3:32
  */
 @SpringBootApplication
+@EnableConfigServer
 @EnableDiscoveryClient
-public class ConfigClientApplication {
-
+public class ConfigServerEurekaApplication {
     public static void main(String[] args) {
-        new SpringApplicationBuilder(ConfigClientApplication.class)
+        new SpringApplicationBuilder(ConfigServerEurekaApplication.class)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
     }
