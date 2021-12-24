@@ -1,5 +1,7 @@
 encrypt:
-#  key: APODNU3093r2rbjzxcn09u213asdhy08WRFH
+  # 对称加密
+  #  key: APODNU3093r2rbjzxcn09u213asdhy08WRFH
+  # 非对称加密
   key-store:
     location: file://${user.home}/develop/workspace/playground/keytool/config-server-eureka.jks
     alias: config-info
