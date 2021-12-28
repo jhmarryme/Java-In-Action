@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          # 是否将服务id转换为小写
+          lower-case-service-id: true
+      routes:
+      - id: my-feign-client
+        uri: lb://feign-client
+        predicates:
+        - Path=/my-feign-client/**
+      - id: my-feign-client-2
+        uri: lb://feign-client
+        predicates:
+        - Path=/context-path/my-feign-client/**
+        filters:
+        - StripPrefix=1
+
+server:
+  port: 40015
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:20000/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
