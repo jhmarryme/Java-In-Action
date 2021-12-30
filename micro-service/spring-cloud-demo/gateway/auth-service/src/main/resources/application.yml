@@ -1,0 +1,25 @@
+server:
+  port: 40016
+spring:
+  application:
+    name: auth-service
+  redis:
+    database: 5
+    host: 1.14.140.53
+    port: 30020
+    password: jh541224
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:20000/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
