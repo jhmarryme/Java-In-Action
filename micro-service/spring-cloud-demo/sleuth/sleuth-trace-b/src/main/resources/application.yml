@@ -3,11 +3,18 @@ server:
 spring:
   application:
     name: sleuth-trace-b
+  zipkin:
+    base-url: http://localhost:40019
+  sleuth:
+    sampler:
+      # 采样率
+      probability: 1
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:20000/eureka/
+
 
 management:
   endpoints:

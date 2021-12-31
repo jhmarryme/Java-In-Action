@@ -32,6 +32,7 @@
         <module>gateway/auth-service</module>
         <module>sleuth/sleuth-trace-a</module>
         <module>sleuth/sleuth-trace-b</module>
+        <module>sleuth/zipkin-server</module>
     </modules>
 
     <properties>
