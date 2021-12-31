@@ -30,6 +30,8 @@
         <module>gateway/gateway-sample</module>
         <module>gateway/auth-service-api</module>
         <module>gateway/auth-service</module>
+        <module>sleuth/sleuth-trace-a</module>
+        <module>sleuth/sleuth-trace-b</module>
     </modules>
 
     <properties>

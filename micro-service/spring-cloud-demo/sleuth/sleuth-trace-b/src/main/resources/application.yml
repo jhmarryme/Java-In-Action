@@ -1,0 +1,20 @@
+server:
+  port: 40018
+spring:
+  application:
+    name: sleuth-trace-b
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:20000/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
