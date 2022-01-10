@@ -16,4 +16,5 @@ management:
   metrics:
     web:
       server:
+        # 关闭后台窗口输出的一些无效错误日志
         auto-time-requests: false

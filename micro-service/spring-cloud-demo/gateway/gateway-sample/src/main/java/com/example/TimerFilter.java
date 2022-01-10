@@ -16,11 +16,15 @@ public class TimerFilter implements GatewayFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 给接口计时并能打出很漂亮的log
         StopWatch timer = new StopWatch();
+        //开始计时
         timer.start(exchange.getRequest().getURI().getRawPath());
 
+        // 我们还可以对调用链进行加工,手工放入请求参数
 //        exchange.getAttributes().put("requestTimeBegain", System.currentTimeMillis());
         return chain.filter(exchange).then(
+                //这里就是执行完过滤进行调用的地方
                 Mono.fromRunnable(() -> {
                     timer.stop();
                     log.info(timer.prettyPrint());
