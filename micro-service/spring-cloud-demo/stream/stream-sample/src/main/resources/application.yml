@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: stream-server
+  rabbitmq:
+    host: 1.14.140.53
+    port: 30050
+    username: jhmarryme
+    password: 541224
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
