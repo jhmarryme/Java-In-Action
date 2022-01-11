@@ -9,10 +9,17 @@ spring:
   cloud:
     stream:
       bindings:
+        # 绑定Channel到broadcast
         myTopic-consumer:
-          destination: myTopic
+          destination: broadcast
         myTopic-producer:
-          destination: myTopic
+          destination: broadcast
+        # 消息分组示例
+        group-consumer:
+          destination: group-topic
+          group: group-b
+        group-producer:
+          destination: group-topic
 management:
   endpoints:
     web:

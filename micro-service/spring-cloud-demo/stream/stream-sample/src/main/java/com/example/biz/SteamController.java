@@ -1,5 +1,6 @@
 package com.example.biz;
 
+import com.example.topic.GroupTopic;
 import com.example.topic.MyTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
@@ -19,10 +20,19 @@ public class SteamController {
     @Autowired
     private MyTopic producer;
 
+    @Autowired
+    private GroupTopic groupTopicProducer;
+
     @PostMapping("/send")
     public String send(@RequestParam("body") String body) {
         // 生产一条消息
         producer.output().send(MessageBuilder.withPayload(body).build());
+        return null;
+    }
+
+    @PostMapping("/send-group")
+    public String sendGroup(@RequestParam("body") String body) {
+        groupTopicProducer.output().send(MessageBuilder.withPayload(body).build());
         return null;
     }
 }
