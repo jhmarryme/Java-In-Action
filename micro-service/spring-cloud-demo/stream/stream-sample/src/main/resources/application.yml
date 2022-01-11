@@ -6,7 +6,13 @@ spring:
     port: 30050
     username: jhmarryme
     password: 541224
-
+  cloud:
+    stream:
+      bindings:
+        myTopic-consumer:
+          destination: myTopic
+        myTopic-producer:
+          destination: myTopic
 management:
   endpoints:
     web:
@@ -15,3 +21,5 @@ management:
   endpoint:
     health:
       show-details: always
+server:
+  port: 40020
