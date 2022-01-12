@@ -1,7 +1,10 @@
 package com.example.biz;
 
+import com.example.entity.MessageBean;
+import com.example.topic.DelayedTopic;
 import com.example.topic.GroupTopic;
 import com.example.topic.MyTopic;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022/1/11 下午4:43
  */
 @RestController
+@Slf4j
 public class SteamController {
 
     /** 由stream给我完成注入和绑定了 */
@@ -22,6 +26,9 @@ public class SteamController {
 
     @Autowired
     private GroupTopic groupTopicProducer;
+
+    @Autowired
+    private DelayedTopic delayedTopicProducer;
 
     @PostMapping("/send")
     public String send(@RequestParam("body") String body) {
@@ -33,6 +40,19 @@ public class SteamController {
     @PostMapping("/send-group")
     public String sendGroup(@RequestParam("body") String body) {
         groupTopicProducer.output().send(MessageBuilder.withPayload(body).build());
+        return null;
+    }
+
+    @PostMapping("/send-dm")
+    public String sendDm(
+            @RequestParam("body") String body,
+            @RequestParam("seconds") Integer seconds) {
+        MessageBean messageBean = MessageBean.builder().payload(body).build();
+        log.info("ready to send delayed message");
+        delayedTopicProducer.output().send(
+                MessageBuilder.withPayload(messageBean)
+                        .setHeader("x-delay", seconds * 1000)
+                        .build());
         return null;
     }
 }

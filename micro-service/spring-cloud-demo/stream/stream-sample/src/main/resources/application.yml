@@ -28,10 +28,24 @@ spring:
             partitionCount: 4
             # SpEL (Key resolver) 可以定义复杂表达式生成Key 这里用最简化的配置，只有索引参数为1的节点（消费者），才能消费消息
             partition-key-expression: '1'
+        delayed-consumer:
+          destination: delayed-topic
+        delayed-producer:
+          destination: delayed-topic
       # 当前消费者实例总数
       instance-count: 2
       # 最大值instanceCount-1，当前实例的索引号
       instance-index: 1
+      rabbit:
+        bindings:
+          delayed-consumer:
+            consumer:
+              # 延迟消息配置
+              delayed-exchange: true
+          delayed-producer:
+            producer:
+              # 延迟消息配置
+              delayed-exchange: true
 management:
   endpoints:
     web:
