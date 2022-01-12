@@ -17,9 +17,21 @@ spring:
         # 消息分组示例
         group-consumer:
           destination: group-topic
-          group: group-b
+          group: group-a
+          consumer:
+            # 打开消费者的消费分区功能
+            partitioned: true
         group-producer:
           destination: group-topic
+          producer:
+            # 两个消息分区
+            partitionCount: 4
+            # SpEL (Key resolver) 可以定义复杂表达式生成Key 这里用最简化的配置，只有索引参数为1的节点（消费者），才能消费消息
+            partition-key-expression: '1'
+      # 当前消费者实例总数
+      instance-count: 2
+      # 最大值instanceCount-1，当前实例的索引号
+      instance-index: 1
 management:
   endpoints:
     web:
