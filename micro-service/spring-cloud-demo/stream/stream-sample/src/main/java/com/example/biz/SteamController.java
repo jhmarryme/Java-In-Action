@@ -2,6 +2,7 @@ package com.example.biz;
 
 import com.example.entity.MessageBean;
 import com.example.topic.DelayedTopic;
+import com.example.topic.ErrorTopic;
 import com.example.topic.GroupTopic;
 import com.example.topic.MyTopic;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,9 @@ public class SteamController {
     @Autowired
     private DelayedTopic delayedTopicProducer;
 
+    @Autowired
+    private ErrorTopic errorTopic;
+
     @PostMapping("/send")
     public String send(@RequestParam("body") String body) {
         // 生产一条消息
@@ -55,4 +59,11 @@ public class SteamController {
                         .build());
         return null;
     }
+
+    @PostMapping("/send-error")
+    public String sendError(@RequestParam("body") String body) {
+        errorTopic.output().send(MessageBuilder.withPayload(body).build());
+        return null;
+    }
+
 }

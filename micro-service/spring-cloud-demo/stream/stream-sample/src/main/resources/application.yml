@@ -32,6 +32,12 @@ spring:
           destination: delayed-topic
         delayed-producer:
           destination: delayed-topic
+        error-consumer:
+          destination: error-topic
+          consumer:
+            max-attempts: 1
+        error-producer:
+          destination: error-topic
       # 当前消费者实例总数
       instance-count: 2
       # 最大值instanceCount-1，当前实例的索引号
