@@ -1,15 +1,10 @@
 package com.example.rabbit.consumer.component;
 
-import org.springframework.amqp.rabbit.annotation.Exchange;
-import org.springframework.amqp.rabbit.annotation.Queue;
-import org.springframework.amqp.rabbit.annotation.QueueBinding;
-import org.springframework.amqp.rabbit.annotation.RabbitHandler;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import com.rabbitmq.client.Channel;
+import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
-
-import com.rabbitmq.client.Channel;
 
 @Component
 public class RabbitReceive {
@@ -29,18 +24,21 @@ public class RabbitReceive {
                     exchange = @Exchange(name = "exchange-1",
                             durable = "true",
                             type = "topic",
+                            // 忽略声明异常
                             ignoreDeclarationExceptions = "true"),
+                    // routingKey: 这里由于是 topic 模式，所以支持通配符
                     key = "springboot.*"
             )
     )
     @RabbitHandler
     public void onMessage(Message message, Channel channel) throws Exception {
-        //	1. 收到消息以后进行业务端消费处理
+        // 1. 收到消息以后进行业务端消费处理
         System.err.println("-----------------------");
         System.err.println("消费消息:" + message.getPayload());
 
-        //  2. 处理成功之后 获取deliveryTag 并进行手工的ACK操作, 因为我们配置文件里配置的是 手工签收
-        //	spring.rabbitmq.listener.simple.acknowledge-mode=manual
+        // 2. 处理成功之后 获取deliveryTag 并进行手工的ACK操作, 因为我们配置文件里配置的是 手工签收
+        // spring.rabbitmq.listener.simple.acknowledge-mode=manual
+        // 消息到达 MQ 之后，会给每一条消息一个唯一的 deliveryTag
         Long deliveryTag = (Long) message.getHeaders().get(AmqpHeaders.DELIVERY_TAG);
         channel.basicAck(deliveryTag, false);
     }
