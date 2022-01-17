@@ -1,5 +1,6 @@
 
 -- 表 broker_message.broker_message 结构
+-- 记录消息日志数据
 CREATE TABLE IF NOT EXISTS `broker_message` (
   `message_id` varchar(128) NOT NULL,
   `message` varchar(4000),

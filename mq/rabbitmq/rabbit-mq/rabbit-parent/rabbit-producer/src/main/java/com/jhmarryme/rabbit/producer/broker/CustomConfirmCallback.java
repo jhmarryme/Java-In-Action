@@ -28,6 +28,7 @@ public class CustomConfirmCallback implements RabbitTemplate.ConfirmCallback {
     @Autowired
     private MessageStoreService messageStoreService;
 
+    /** 构建一个分割器，以 # 分隔 */
     private final Splitter splitter = Splitter.on("#");
 
     @Override

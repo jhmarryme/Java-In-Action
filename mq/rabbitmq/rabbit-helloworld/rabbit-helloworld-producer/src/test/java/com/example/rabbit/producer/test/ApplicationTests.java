@@ -14,10 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ApplicationTests {
 
-	
 	@Autowired
 	private RabbitSender reRabbitSender;
-	
 	
 	@Test
 	public void testSender() throws Exception {
@@ -25,22 +23,8 @@ public class ApplicationTests {
 		properties.put("attr1", "12345");
 		properties.put("attr2", "abcde");
 		reRabbitSender.send("hello rabbitmq!", properties);
-		
+        // 休眠，因为有一些事件回调，等待他们的回调
 		Thread.sleep(10000);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

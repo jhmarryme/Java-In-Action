@@ -23,19 +23,25 @@ public class BrokerMessageConfiguration {
 
     @Autowired
     private DataSource rabbitProducerDataSource;
-    
+
+    // 注意这里的 Resource 是 org.springframework.core.io.Resource 的
     @Value("classpath:rabbit-producer-message-schema.sql")
     private Resource schemaScript;
-    
+
+    /** 用于在初始化过程中设置数据库，并在销毁过程中清理数据库。 */
     @Bean
     public DataSourceInitializer initDataSourceInitializer() {
     	System.err.println("--------------rabbitProducerDataSource-----------:" + rabbitProducerDataSource);
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(rabbitProducerDataSource);
+        // 在程序初始化阶段执行
         initializer.setDatabasePopulator(databasePopulator());
+        // 这个则在程序销毁阶段执行
+        // initializer.setDatabaseCleaner();
         return initializer;
     }
 
+    /** 用于填充、初始化或清理数据库的策略 */
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(schemaScript);
