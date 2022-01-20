@@ -11,14 +11,21 @@ spring:
       ack-mode: manual
       concurrency: 5
     consumer:
-      # 指定默认消费者group id --> 由于在kafka中，同一组中的consumer不会读取到同一个消息，依靠groud.id设置组名
-#      group-id: test
-      #如果'enable.auto.commit'为true，则消费者偏移自动提交给Kafka的频率（以毫秒为单位），默认值为5000。
-#      auto-commit-interval: 1000
-      # smallest和largest才有效，如果smallest重新0开始读取，如果是largest从logfile的offset读取。一般情况下我们都是设置smallest
-      auto-offset-reset: earliest
+      # ack 机制：消费者在消费完消息之后，如何做 ack
+      ## 生产中一般不会使用自动确认，使用手动确认，在消息失败时，还能做一些重试等策略
       # enable.auto.commit:true --> 设置自动提交offset
       enable-auto-commit: false
+
+      # 指定默认消费者group id --> 由于在kafka中，同一组中的consumer不会读取到同一个消息，依靠groud.id设置组名
+      #      group-id: test
+      # 如果'enable.auto.commit'为true，则消费者偏移自动提交给Kafka的频率（以毫秒为单位），默认值为5000。
+      #      auto-commit-interval: 1000
+
+      # 消费者在读取一个没有偏移量的分区或则偏移量无效的情况下如何处理
+      ## latest (默认值)：在偏移量无效的情况下，消费者将从最新的记录开始读取数据（在消费者启动之后生成的记录）
+      ## earliest：在偏移量无效的情况下，消费者将从起始位置读取分区记录
+      auto-offset-reset: earliest
+
       # 指定消息key和消息体的编解码方式
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
