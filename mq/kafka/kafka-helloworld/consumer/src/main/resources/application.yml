@@ -4,7 +4,8 @@ spring:
   #### kafka配置消费者 start ####
   kafka:
     # 指定kafka server的地址，集群配多个，中间，逗号隔开
-    bootstrap-servers: 1.14.140.53:30072
+#    bootstrap-servers: 1.14.140.53:30072
+    bootstrap-servers: 127.0.0.1:9092
     listener:
       # manual: 配置监听手动提交 ack
       # manual_immediate: 手动提交 ack ,消费一条数据完后，立即提交

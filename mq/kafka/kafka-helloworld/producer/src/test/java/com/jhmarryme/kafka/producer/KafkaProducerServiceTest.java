@@ -26,7 +26,7 @@ class KafkaProducerServiceTest {
     @Test
     @DisplayName("kafka生产者发送消息")
     void sendMessage() {
-        String topic = "topic03";
+        String topic = "topic1";
         Stream.iterate(1, integer -> integer + 1)
                 .limit(100)
                 .forEach(integer -> {
