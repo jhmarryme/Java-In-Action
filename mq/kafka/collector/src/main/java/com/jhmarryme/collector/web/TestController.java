@@ -47,6 +47,18 @@ public class TestController {
      *  \[%{DATA:location}\]
      *  \[%{DATA:messageInfo}\]
      *  ## (\'\'|%{QUOTEDSTRING:throwable})"]
+     *
+     * [%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZ}]   格式化成 UTC 时间
+     * [%level{length=5}] 日志级别
+     * [%thread-%tid] 线程 ID
+     * [%logger] 日志信息，是哪一个类打印的日志，全限定包名
+     * [%X{hostName}]   X 表示自定义参数信息
+     * [%X{ip}]
+     * [%X{applicationName}]
+     * [%F,%L,%C,%M] 类名（无具体包名）、行数、具体包名+类名、方法名
+     * [%m] 表示消息的具体内容，比如：我是一条 info 级别的日志
+     * ## '%ex' 这里是自定义特殊约定的，两个 ## 分隔，后面的是 $ex 是异常信息，外面携带了单引号，后面会说明它的含义
+     * %n 换行符
      */
     @RequestMapping(path = "/idx", method = {RequestMethod.GET, RequestMethod.POST})
     public String idx(HttpServletRequest request, HttpServletResponse response) {

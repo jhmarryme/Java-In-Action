@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2021/10/12 下午11:13
  */
 @SpringBootApplication
-public class Application {
+public class CollectorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(CollectorApplication.class, args);
     }
 }
