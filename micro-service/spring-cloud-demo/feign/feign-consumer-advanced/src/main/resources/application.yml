@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: feign-consumer-advanced
+### Feign - 当Bean名字一样的时候，允许覆盖注册
+#  main:
+#    allow-bean-definition-overriding: true
+server:
+  port: 40003
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:20000/eureka
+
+feign-client:
+  ribbon:
+    # 每台机器最大重试次数
+    MaxAutoRetries: 2
+    # 可以再重试几台机器
+    MaxAutoRetriesNextServer: 2
+    # 连接超时
+    ConnectTimeout: 1000
+    # 业务处理超时
+    ReadTimeout: 2000
+    # 在所有HTTP Method进行重试
+    OkToRetryOnAllOperations: true

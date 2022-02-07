@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ribbon-consumer
+
+server:
+  port: 40001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:20000/eureka
+
+eureka-client:
+  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.example.rules.MyRule
+#eureka:
+#  client:
+#    service-url:
+#      # EurekaServer地址,多个地址以','隔开
+##      defaultZone: http://peer1:20001/eureka
+#      defaultZone: http://peer1:20001/eureka,http://peer2:20002/eureka

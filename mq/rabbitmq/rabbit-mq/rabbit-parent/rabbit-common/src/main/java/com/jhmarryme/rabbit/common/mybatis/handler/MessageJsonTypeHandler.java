@@ -18,6 +18,15 @@ import java.sql.SQLException;
  */
 public class MessageJsonTypeHandler extends BaseTypeHandler<Message> {
 
+    /**
+     * 在生成 SQL 语句时，将对象转换为数据库中的 类型
+     *
+     * @param ps
+     * @param i
+     * @param parameter
+     * @param jdbcType
+     * @throws SQLException
+     */
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Message parameter,
             JdbcType jdbcType) throws SQLException {
@@ -25,6 +34,16 @@ public class MessageJsonTypeHandler extends BaseTypeHandler<Message> {
         ps.setString(i, FastJsonConvertUtil.convertObjectToJSON(parameter));
     }
 
+    // 下面三个都是从结果集中转换成  实体类
+
+    /**
+     * 从数据库读取时，将 字段中的 字符串转换为实体类
+     *
+     * @param rs
+     * @param columnName
+     * @return
+     * @throws SQLException
+     */
     @Override
     public Message getNullableResult(ResultSet rs, String columnName)
             throws SQLException {

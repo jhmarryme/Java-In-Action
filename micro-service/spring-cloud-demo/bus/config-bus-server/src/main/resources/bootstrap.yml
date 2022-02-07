@@ -1,0 +1,11 @@
+encrypt:
+  # 对称加密
+  #  key: APODNU3093r2rbjzxcn09u213asdhy08WRFH
+  # 非对称加密
+  key-store:
+    location: file://${user.home}/develop/workspace/playground/keytool/config-server-eureka.jks
+    alias: config-info
+    # storepass 密钥仓库
+    password: configStorePwd
+    # keypass 用来保护所生成密钥对中的私钥
+    secret: configKeyPwd

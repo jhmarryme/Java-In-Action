@@ -39,15 +39,14 @@ public class Message {
     /**    消息类型：默认为confirm消息类型	*/
     private MessageType messageType = MessageType.CONFIRM;
 
-    public Message check() {
+    public void check() {
         // 1. check messageId
         if (id == null) {
-            id = UUID.randomUUID().toString();
+            throw new MessageRunTimeException("this id is null");
         }
         // 2. topic is null
         if (topic == null) {
             throw new MessageRunTimeException("this topic is null");
         }
-        return new Message(id, topic, routingKey, attributes, delayMills, messageType);
     }
 }

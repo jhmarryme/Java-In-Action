@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      name: config-consumer
+#      uri: http://localhost:40009
+      # 通过eureka, 连接config-server-eureka
+      discovery:
+        enabled: true
+        service-id: config-server-eureka
+      profile: prod
+      label: main
+server:
+  port: 40010
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:20000/eureka
+
+# 读取远程配置获取属性
+myWords: ${words}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
