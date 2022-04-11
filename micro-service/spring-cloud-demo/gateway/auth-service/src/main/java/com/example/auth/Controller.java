@@ -35,6 +35,7 @@ public class Controller {
         account.setToken(token);
         account.setRefreshToken(UUID.randomUUID().toString());
 
+        // 还需要将这个 结果 信息存放到某个地方，后续刷新的时候才能拿到对应的账户信息
         redisTemplate.opsForValue().set(account.getRefreshToken(), account);
 
         return AuthResponse.builder()
@@ -56,8 +57,9 @@ public class Controller {
         String jwt = jwtService.token(account);
         account.setToken(jwt);
         account.setRefreshToken(UUID.randomUUID().toString());
-
+        // 删除原来失效的刷新 token
         redisTemplate.delete(refreshToken);
+        // 存入新的 token 信息
         redisTemplate.opsForValue().set(account.getRefreshToken(), account);
 
         return AuthResponse.builder()

@@ -15,9 +15,12 @@ spring:
           #          username:
           #          password:
           private-key: |
-                        -----BEGIN RSA PRIVATE KEY-----
-                        
-                        -----END RSA PRIVATE KEY-----
+                      -----BEGIN EC PRIVATE KEY-----
+                      MHcCAQEEILbCLGlR3KNMcpZwEpWVYtTasRsByjDUiekYVR+4AN2DoAoGCCqGSM49
+                      AwEHoUQDQgAEkT2YujuJkurVnvm0GFtHbo0Z4ETBoZHsffn+WisdCPlIAtrGc1IA
+                      TjAEctyxCEajHw0ATODlGQIVgOTDmQQ/+g==
+                      -----END EC PRIVATE KEY-----
+          search-paths: "architect/foodie/{application}"
 
 server:
   port: 40009

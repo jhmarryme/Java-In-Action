@@ -11,15 +11,14 @@ public interface AuthService {
 
     @PostMapping("/login")
     @ResponseBody
-    public AuthResponse login(@RequestParam("username") String username,
-                              @RequestParam("password") String password);
+    AuthResponse login(@RequestParam("username") String username,
+                       @RequestParam("password") String password);
 
     @GetMapping("/verify")
-    public AuthResponse verify(@RequestParam("token") String token,
-                               @RequestParam("username") String username);
+    AuthResponse verify(@RequestParam("token") String token,
+                        @RequestParam("username") String username);
 
     @PostMapping("/refresh")
     @ResponseBody
-    public AuthResponse refresh(@RequestParam("refresh") String refresh);
-
+    AuthResponse refresh(@RequestParam("refresh") String refresh);
 }

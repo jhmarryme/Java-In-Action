@@ -27,11 +27,14 @@ public class GatewayConfiguration {
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(
-                        "java-feignclient",
+                        "java-feignclient", // 为了好区分是哪里配置的，这里增加 路由 ID
                         r -> r.path("/java/my-feign-client/**")
+                                // 必须要是一个 GET 请求
                                 .and().method(HttpMethod.GET)
+                                // 请求头 header 中必须包含 name key
                                 .and().header("name")
                                 .filters(f -> f.stripPrefix(1)
+                                        // 给响应头添加一个 header
                                         .addResponseHeader("X-CustomerHeader", "xxx")
                                         .filters(authFilter)
                                         .filter(timerFilter))

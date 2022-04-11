@@ -4,7 +4,9 @@ spring:
   cloud:
     gateway:
       discovery:
+        # 定位器: 自动创建路由规则
         locator:
+          # 会去拉取所有注册的服务，并且自动添加路由规则
           enabled: true
           # 是否将服务id转换为小写
           lower-case-service-id: true

@@ -7,7 +7,7 @@ spring:
     database: 5
     host: 1.14.140.53
     port: 30020
-    password: jh541224
+    password: ENC(jgUOAW3WOFOnOGbPEew+xtrPvZtTv/BD)
 
 eureka:
   client:
@@ -23,3 +23,11 @@ management:
     health:
       show-details: always
 
+# jasypt 密码加密配置
+jasypt:
+  encryptor:
+    # 加密盐值
+    password: jhmarryme.com
+    # 加密算法设置 3.0.0 以后
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator

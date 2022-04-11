@@ -31,7 +31,8 @@ public class AuthFilter implements GatewayFilter, Ordered {
         log.info("Auth start");
         ServerHttpRequest request = exchange.getRequest();
         HttpHeaders header = request.getHeaders();
-        String token = header.getFirst(AUTH);
+        // 1. 从header中提取token和username, 需要去掉多余的部分(Bearer)
+        String token = StringUtils.substringAfter(header.getFirst(AUTH), "Bearer ");
         String username = header.getFirst(USERNAME);
 
         ServerHttpResponse response = exchange.getResponse();
@@ -40,7 +41,7 @@ public class AuthFilter implements GatewayFilter, Ordered {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
-
+        // 2. 调用auth服务验证token
         AuthResponse resp = authService.verify(token, username);
         if (resp.getCode() != 1L) {
             log.error("invalid token");
@@ -48,14 +49,18 @@ public class AuthFilter implements GatewayFilter, Ordered {
             return response.setComplete();
         }
 
+        // 3. 可以在header中存放用户信息
         // TODO 将用户信息存放在请求header中传递给下游业务
         ServerHttpRequest.Builder mutate = request.mutate();
         mutate.header("imooc-user-name", username);
         ServerHttpRequest buildReuqest = mutate.build();
 
+        // 4. 可以在response中存放用户信息
         //todo 如果响应中需要放数据，也可以放在response的header中
         response.setStatusCode(HttpStatus.OK);
-        response.getHeaders().add("imooc-username",username);
+        response.getHeaders().add("imooc-username", username);
+
+        // 5. do filter
         return chain.filter(exchange.mutate()
                 .request(buildReuqest)
                 .response(response)
