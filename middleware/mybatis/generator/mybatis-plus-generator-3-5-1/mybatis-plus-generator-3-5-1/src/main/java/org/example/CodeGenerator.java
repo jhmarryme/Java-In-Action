@@ -18,10 +18,10 @@ public class CodeGenerator {
     @AllArgsConstructor
     @Getter
     public enum DataSourceType {
-        TEST("jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.221.149.64)(PORT=1523))(CONNECT_DATA=" +
+        TEST("jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=)(PORT=))(CONNECT_DATA=" +
                 "(SERVICE_NAME=travelweb)))",
-                "travelweb",
-                "Gds110804",
+                "",
+                "",
                 "TRAVELWEB");
         private final String url;
         private final String username;
