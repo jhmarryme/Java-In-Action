@@ -19,7 +19,7 @@ public class SystemLogAspectTestController {
     @ResponseResultBody
 //    @OperLog(operModule = "测试日志记录模块", operType = "测试type", operDesc = "测试Desc")
     public OperationLog postJson(@RequestBody ExceptionLog exceptionLog, @RequestParam String param) {
-        ResponseEnum.PARAM_VERIFICATION_ERROR.assertNotNull(exceptionLog.getId());
+        ResponseEnum.PARAM_VERIFICATION_ERROR.assertNotNull(exceptionLog.getId(), "id");
         return new OperationLog();
     }
 

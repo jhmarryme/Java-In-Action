@@ -1,7 +1,6 @@
 package com.jhmarryme.demo.common.util;
 
-import com.jhmarryme.demo.common.base.exception.CommonException;
-import com.jhmarryme.demo.common.util.JacksonUtils;
+import com.jhmarryme.demo.common.base.exception.BusinessException;
 import com.jhmarryme.demo.pojo.vo.TestVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +50,7 @@ class JacksonUtilsTest {
 
     @Test
     void json2Pojo() {
-        TestVO actual = JacksonUtils.json2Pojo(json, TestVO.class).orElseThrow(CommonException::new);
+        TestVO actual = JacksonUtils.json2Pojo(json, TestVO.class).orElseThrow(BusinessException::new);
         Assertions.assertNotNull(actual);
     }
 
@@ -63,7 +62,7 @@ class JacksonUtilsTest {
 
     @Test
     void json2map() {
-        Map map = JacksonUtils.json2Map(mapJson).orElseThrow(CommonException::new);
+        Map map = JacksonUtils.json2Map(mapJson).orElseThrow(BusinessException::new);
 
         Assertions.assertEquals(map.size(), 4);
     }
@@ -71,7 +70,7 @@ class JacksonUtilsTest {
     @Test
     void json2PojoMap() {
         Map<String, TestVO> testVOMap =
-                JacksonUtils.json2PojoMap(mapJson, TestVO.class).orElseThrow(CommonException::new);
+                JacksonUtils.json2PojoMap(mapJson, TestVO.class).orElseThrow(BusinessException::new);
 
         Assertions.assertEquals(testVOMap.size(), 4);
     }
@@ -83,7 +82,7 @@ class JacksonUtilsTest {
         map.put("key", "sxxxxxxx");
         map.put("state", "1");
 
-        TestVO testVO = JacksonUtils.map2obj(map, TestVO.class).orElseThrow(CommonException::new);
+        TestVO testVO = JacksonUtils.map2obj(map, TestVO.class).orElseThrow(BusinessException::new);
         Assertions.assertEquals(testVO.getName(), "www");
     }
 

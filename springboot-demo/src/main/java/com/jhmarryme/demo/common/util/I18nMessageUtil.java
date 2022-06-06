@@ -20,7 +20,7 @@ public class I18nMessageUtil {
         I18nMessageUtil.messageSource = messageSource;
     }
 
-    public static String getMsg(String msgKey, String... args) {
+    public static String getMsg(String msgKey, Object... args) {
         try {
             return messageSource.getMessage(msgKey, args, LocaleContextHolder.getLocale());
         } catch (NoSuchMessageException e) {

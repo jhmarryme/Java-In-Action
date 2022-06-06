@@ -1,0 +1,18 @@
+###
+POST localhost:7777/system/log/postJson?param=12
+Content-Type: application/json
+
+{
+  "name": "",
+  "userId": "",
+  "username": "",
+  "uri": "",
+  "ip": "",
+  "createTime": "",
+  "ver": "",
+  "method": "",
+  "reqType": "",
+  "msg": "",
+  "reqParam": "",
+  "reqBody": ""
+}

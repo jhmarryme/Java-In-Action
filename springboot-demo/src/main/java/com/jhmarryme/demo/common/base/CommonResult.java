@@ -1,7 +1,7 @@
 package com.jhmarryme.demo.common.base;
 
-import com.jhmarryme.demo.common.base.interfaces.IResponseEnum;
 import com.jhmarryme.demo.common.base.enums.ResponseEnum;
+import com.jhmarryme.demo.common.base.interfaces.IResponseEnum;
 import lombok.Data;
 
 /**
@@ -13,7 +13,7 @@ import lombok.Data;
 public class CommonResult<T> {
 
     /** 业务错误码 */
-    private Integer code;
+    private String code;
 
     /** 信息描述 */
     private String msg;
@@ -22,7 +22,7 @@ public class CommonResult<T> {
     private T data;
 
     private CommonResult(IResponseEnum resultStatus, T data) {
-        this.code = resultStatus.getHttpStatus().value();
+        this.code = resultStatus.getCode();
         this.msg = resultStatus.getCode();
         this.data = data;
     }
@@ -42,36 +42,19 @@ public class CommonResult<T> {
     }
 
     /**
-     * 业务成功返回业务代码,描述和返回的参数
-     */
-    public static <T> CommonResult<T> success(IResponseEnum resultStatus, T data) {
-        if (resultStatus == null) {
-            return success(data);
-        }
-        return new CommonResult<>(resultStatus, data);
-    }
-
-    /**
      * 业务异常返回业务代码和描述信息
      */
     public static <T> CommonResult<T> failure() {
-        return new CommonResult<>(ResponseEnum.UNKNOWN_ERROR, null);
+        return failure(null);
     }
 
     /**
      * 业务异常返回业务代码,描述和返回的参数
      */
     public static <T> CommonResult<T> failure(IResponseEnum resultStatus) {
-        return failure(resultStatus, null);
-    }
-
-    /**
-     * 业务异常返回业务代码,描述和返回的参数
-     */
-    public static <T> CommonResult<T> failure(IResponseEnum resultStatus, T data) {
         if (resultStatus == null) {
-            return new CommonResult<>(ResponseEnum.UNKNOWN_ERROR, null);
+            resultStatus = ResponseEnum.UNKNOWN_ERROR;
         }
-        return new CommonResult<>(resultStatus, data);
+        return new CommonResult<>(resultStatus, null);
     }
 }

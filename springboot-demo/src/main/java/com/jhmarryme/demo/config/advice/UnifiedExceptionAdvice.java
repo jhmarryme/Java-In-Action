@@ -35,7 +35,7 @@ public class UnifiedExceptionAdvice {
     @ExceptionHandler(BaseException.class)
     public Object handleCommonException(BaseException e, HttpServletRequest request) {
         log.error("统一异常处理(业务异常):" + e);
-        return buildResult(e.getResponseEnum(), e.getData(), e.getParams());
+        return buildResult(e.getResponseEnum(), e.getArgs());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -53,10 +53,10 @@ public class UnifiedExceptionAdvice {
         return buildResult(ResponseEnum.UNKNOWN_ERROR, null);
     }
 
-    private CommonResult<Object> buildResult(IResponseEnum responseEnum, Object data, String... params) {
+    private CommonResult<Object> buildResult(IResponseEnum responseEnum, Object... args){
         // 国际化
-        String msg = I18nMessageUtil.getMsg(responseEnum.getCode(), params);
-        CommonResult<Object> result = CommonResult.failure(responseEnum, data);
+        String msg = I18nMessageUtil.getMsg(responseEnum.getCode(), args);
+        CommonResult<Object> result = CommonResult.failure(responseEnum);
         result.setMsg(msg);
         return result;
     }

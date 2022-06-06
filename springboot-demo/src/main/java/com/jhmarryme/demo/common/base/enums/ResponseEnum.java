@@ -1,9 +1,9 @@
 package com.jhmarryme.demo.common.base.enums;
 
 
-import com.jhmarryme.demo.common.base.interfaces.CommonExceptionAssert;
+import com.jhmarryme.demo.common.base.interfaces.BusinessExceptionAssert;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 /**
  * 异常code
@@ -11,33 +11,31 @@ import org.springframework.http.HttpStatus;
  * @date 2021/3/3 11:01
  */
 @Getter
-public enum ResponseEnum implements CommonExceptionAssert {
+@AllArgsConstructor
+public enum ResponseEnum implements BusinessExceptionAssert {
 
     /** 成功 */
-    SUCCESS(HttpStatus.OK),
+    SUCCESS("200", "success"),
     /** 处理错误 */
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR),
+    INTERNAL_SERVER_ERROR("500", ""),
     /** 未知错误 */
-    UNKNOWN_ERROR(HttpStatus.INTERNAL_SERVER_ERROR),
+    UNKNOWN_ERROR("000", ""),
     /** 失败 */
-    BAD_REQUEST(HttpStatus.BAD_REQUEST),
+    BAD_REQUEST("400", ""),
     /** 未登录 */
-    NO_AUTHORITY(HttpStatus.FORBIDDEN),
+    NO_AUTHORITY("401", ""),
     /** 测试用 */
-    TEST_ERROR(HttpStatus.BAD_REQUEST),
+    TEST_ERROR("403", ""),
     /** 参数校验错误 */
-    PARAM_VERIFICATION_ERROR(HttpStatus.BAD_REQUEST),
+    PARAM_VERIFICATION_ERROR("405", "{0}不能为空"),
     ;
 
-    /** 业务异常码 */
-    private final HttpStatus httpStatus;
-
-    ResponseEnum(HttpStatus httpStatus) {
-        this.httpStatus = httpStatus;
-    }
-
-    @Override
-    public String getCode() {
-        return this.name();
-    }
+    /**
+     * 返回码
+     */
+    private final String code;
+    /**
+     * 返回消息
+     */
+    private final String message;
 }

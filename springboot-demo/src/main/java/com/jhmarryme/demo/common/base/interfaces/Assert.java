@@ -9,22 +9,30 @@ import com.jhmarryme.demo.common.base.exception.BaseException;
  */
 public interface Assert {
 
+
     /**
      * 创建异常
-     * <br/>
-     * @param args 参数列表
+     *
      * @return com.jhmarryme.demo.common.base.exception.BaseException
      */
-    BaseException newException(String... args);
+    BaseException newException();
 
     /**
      * 创建异常
      * <br/>
-     * @param data 补充数据
      * @param args 参数列表
      * @return com.jhmarryme.demo.common.base.exception.BaseException
      */
-    BaseException newException(Object data, String... args);
+    BaseException newException(Object... args);
+
+    /**
+     * 创建异常
+     *
+     * @param t t
+     * @param args 参数列表
+     * @return com.jhmarryme.demo.common.base.exception.BaseException
+     */
+    BaseException newException(Throwable t, Object... args);
 
     /**
      * <p>断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
@@ -43,22 +51,21 @@ public interface Assert {
      * @param obj 待判断对象
      * @param args message占位符对应的参数列表
      */
-    default void assertNotNull(Object obj, String... args) {
+    default void assertNotNull(Object obj, Object... args) {
         if (obj == null) {
             throw newException(args);
         }
     }
 
-    /**
-     * <p>断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
-     *
-     * @param obj 待判断对象
-     * @param data 补充数据
-     * @param args message占位符对应的参数列表
-     */
-    default void assertNotNull(Object obj, Object data, String... args) {
-        if (obj == null) {
-            throw newException(data, args);
+    default void assertTrue(boolean result) {
+        if (!result) {
+            throw newException();
+        }
+    }
+
+    default void assertTrue(boolean result, Object... args) {
+        if (!result) {
+            throw newException(args);
         }
     }
 }

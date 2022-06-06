@@ -1,7 +1,7 @@
 package com.jhmarryme.demo.config.aspect;
 
 import com.jhmarryme.demo.common.annotation.OperLog;
-import com.jhmarryme.demo.common.base.exception.CommonException;
+import com.jhmarryme.demo.common.base.exception.BusinessException;
 import com.jhmarryme.demo.common.util.IPUtil;
 import com.jhmarryme.demo.common.util.GsonUtil;
 import com.jhmarryme.demo.pojo.model.system.log.ExceptionLog;
@@ -106,16 +106,16 @@ public class OperationLogAspect {
             // 请求类型
             operlog.setReqType(request.getMethod());
             // 请求体
-            String reqBody = GsonUtil.obj2Json(joinPoint.getArgs()).orElseThrow(CommonException::new);
+            String reqBody = GsonUtil.obj2Json(joinPoint.getArgs()).orElseThrow(BusinessException::new);
             operlog.setReqBody(reqBody);
             // 请求的参数
             Map<String, String> rtnMap = converMap(request.getParameterMap());
             // 将参数所在的数组转换成json
-            String params = GsonUtil.obj2Json(rtnMap).orElseThrow(CommonException::new);
+            String params = GsonUtil.obj2Json(rtnMap).orElseThrow(BusinessException::new);
             // 请求参数
             operlog.setReqParam(params);
             // 返回结果
-            operlog.setResParam(GsonUtil.obj2Json(keys).orElseThrow(CommonException::new));
+            operlog.setResParam(GsonUtil.obj2Json(keys).orElseThrow(BusinessException::new));
             // 请求用户ID
             //            operlog.setOperUserId(UserShiroUtil.getCurrentUserLoginName());
             // 请求用户名称
@@ -140,7 +140,7 @@ public class OperationLogAspect {
      * @param joinPoint 切入点
      * @param e         异常信息
      */
-    @AfterThrowing(pointcut = "operationExceptionLogPointCut()", throwing = "e")
+    // @AfterThrowing(pointcut = "operationExceptionLogPointCut()", throwing = "e")
     public void saveExceptionLog(JoinPoint joinPoint, Throwable e) {
         log.info("saveExceptionLog");
         // 获取RequestAttributes
@@ -166,12 +166,12 @@ public class OperationLogAspect {
             // 请求类型
             excepLog.setReqType(request.getMethod());
             // 请求体
-            String reqBody = GsonUtil.obj2Json(joinPoint.getArgs()).orElseThrow(CommonException::new);
+            String reqBody = GsonUtil.obj2Json(joinPoint.getArgs()).orElseThrow(BusinessException::new);
             excepLog.setReqBody(reqBody);
             // 请求的参数
             Map<String, String> rtnMap = converMap(request.getParameterMap());
             // 将参数所在的数组转换成json
-            String params = GsonUtil.obj2Json(rtnMap).orElseThrow(CommonException::new);
+            String params = GsonUtil.obj2Json(rtnMap).orElseThrow(BusinessException::new);
             excepLog.setReqParam(params);
             // 请求参数
             excepLog.setMethod(methodName);

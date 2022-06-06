@@ -10,5 +10,5 @@ import org.springframework.http.HttpStatus;
 public interface IResponseEnum {
     String getCode();
 
-    HttpStatus getHttpStatus();
+    String getMessage();
 }
