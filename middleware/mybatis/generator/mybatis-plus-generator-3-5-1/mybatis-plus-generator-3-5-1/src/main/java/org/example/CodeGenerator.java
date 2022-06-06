@@ -19,7 +19,7 @@ public class CodeGenerator {
     @Getter
     public enum DataSourceType {
         TEST("jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=)(PORT=))(CONNECT_DATA=" +
-                "(SERVICE_NAME=travelweb)))",
+                "(SERVICE_NAME=)))",
                 "",
                 "",
                 "TRAVELWEB");
