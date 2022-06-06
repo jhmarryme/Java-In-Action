@@ -20,8 +20,14 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthFilter implements GatewayFilter, Ordered {
 
+    /** token 使用的头 */
     private static final String AUTH = "Authorization";
+
+    /** 用户名 使用的头 */
     private static final String USERNAME = "imooc-user-name";
+
+    /** token的前缀部分 */
+    public static final String TOKEN_PREFIX = "Bearer ";
 
     @Autowired
     private AuthService authService;
@@ -32,7 +38,7 @@ public class AuthFilter implements GatewayFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         HttpHeaders header = request.getHeaders();
         // 1. 从header中提取token和username, 需要去掉多余的部分(Bearer)
-        String token = StringUtils.substringAfter(header.getFirst(AUTH), "Bearer ");
+        String token = StringUtils.substringAfter(header.getFirst(AUTH), TOKEN_PREFIX);
         String username = header.getFirst(USERNAME);
 
         ServerHttpResponse response = exchange.getResponse();

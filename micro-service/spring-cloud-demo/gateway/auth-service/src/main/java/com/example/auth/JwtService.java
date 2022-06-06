@@ -12,16 +12,20 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // 生产环境不能这么用
+    /** 密钥：生产环境下是外部传进来的, 可以采用配置中心加密方式传递进来 */
     private static final String KEY = "changeIt";
+
+    /** 颁发者 */
     private static final String ISSUER = "www";
 
-
+    /** 过期时间：毫秒 */
     private static final long TOKEN_EXP_TIME = 600000;
+
+    /** 用户名 */
     private static final String USER_NAME = "username";
 
     /**
-     * 生成Token
+     * 生成Token, 登录完成后，调用该方法
      *
      * @param acct
      * @return
